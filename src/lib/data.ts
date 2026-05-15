@@ -106,92 +106,22 @@ export const projects = [
     } satisfies CaseStudy,
   },
   {
-    title: "ScholarPath",
-    description:
-      "Ed-tech platform for Maharashtra MSCE scholarship exam prep, built from a gap discovered by embedding with parents and exam coordinators in the scholarship ecosystem. Parent-as-gateway model with child profiles, tiered access, and 124-test end-to-end testing plan. Generically extensible exam-category configuration enables rapid expansion to new exam verticals. Supabase MCP integration with Claude Code for AI-assisted delivery.",
-    slug: "scholarpath",
-    image: "/projects/scholarpath.jpg",
-    tags: ["React", "TypeScript", "FastAPI", "Supabase", "Razorpay", "MCP"],
-    metrics: "1,000+ Students",
-    featured: true,
-    domain: "Ed-Tech",
-    url: "https://scholarpath-app.web.app/",
-    caseStudy: {
-      headline: "Multi-tenant SaaS for India's scholarship exam market — live with 1,000+ students.",
-      customer: "Maharashtra MSCE scholarship exam market — parents, students, exam coordinators",
-      timeline: "2024–Present",
-      status: "Live in production",
-      capabilityTags: ["Full-Stack", "SaaS", "Production"],
-      customerContext:
-        "The Maharashtra MSCE scholarship exam is a high-stakes test for students in classes 5 and 8. Parents in this market are deeply invested in their child's preparation but have no structured digital tool — exam prep is fragmented across WhatsApp groups, photocopied question papers, and individual tutors. The parent is the decision-maker and the paying customer, but the student is the user. That distinction drives everything about the architecture.",
-      problem:
-        "The gap wasn't 'there's no app' — there were apps. The gap was: no app understood the parent-as-gateway model. Every existing tool gave children direct accounts. But in Maharashtra's scholarship ecosystem, parents manage preparation, parents pay, and parents need visibility into progress. The real problem was building an access model that matched how families actually work, not how SaaS companies assume they work.",
-      constraints: [
-        "Parent-as-gateway: parent owns the account and manages multiple child profiles — each child may have a different exam tier and access level",
-        "Razorpay INR payments with webhook reliability in a market where payment failures are common",
-        "Mobile-first for rural Maharashtra users on older Android devices with unreliable connectivity",
-        "Generically extensible: the exam-category configuration must support rapid expansion to new exam verticals without re-architecting",
-        "Live customer support during onboarding — real users, real issues, real iteration pressure",
-      ],
-      architectureDecisions: [
-        {
-          what: "Authentication and access model",
-          chosen: "Parent-as-gateway: parent record owns all child sessions, child profiles inherit access from parent's tier",
-          rejected: "Direct child authentication / per-child accounts",
-          why: "Matches how families actually operate in this market. Simplified the threat model significantly — no child authentication surface. Supabase RLS policies scoped to parent_id rather than user_id per child.",
-        },
-        {
-          what: "Exam configuration",
-          chosen: "Generic exam-category configuration table — exam type, grade level, subject, question count, timer rules all configurable per category",
-          rejected: "Hardcoded exam types",
-          why: "MSCE is the launch vertical but not the only one. Every configuration parameter being data-driven means adding a new exam type is a database row, not a deployment.",
-        },
-        {
-          what: "AI-assisted delivery",
-          chosen: "Supabase MCP integration with Claude Code for content generation and AI-assisted development",
-          rejected: "Manual content pipeline",
-          why: "MCP server integration with Claude Code means content workflows run inside the development environment — schema-aware, context-aware, dramatically faster than a separate CMS.",
-        },
-      ],
-      hardProblem:
-        "Multi-tenant data isolation when one parent has multiple children with different access tiers — and the children are not paying users. Supabase Row Level Security was designed for single-user tenancy. Extending it to a parent-owns-children model required a custom access-control layer: every query scoped to the parent's subscription tier, with child profiles inheriting rather than holding their own access grants.",
-      fix:
-        "Rebuilt the permission model: parent record is the tenant root. Child profiles are owned rows under the parent, with no independent authentication. Access tier is resolved at query time from the parent's active subscription, propagated to child profile reads via a parent_id join. No child can access anything their parent hasn't paid for — and no parent can see another family's data.",
-      productionReality:
-        "Razorpay webhooks arrived multiple times for the same payment event. The initial payment handler wasn't idempotent — early users were seeing duplicate payment records. Added idempotency keys on the Razorpay order ID, with a processed_webhooks table to deduplicate before updating subscription state. Payment integration in a regulated market has more compliance edges than features.",
-      outcomeMetrics: [
-        { value: "1,000+", label: "Students", sub: "Active on the platform" },
-        { value: "124", label: "E2E tests", sub: "Full test coverage plan" },
-        { value: "3", label: "Exam verticals", sub: "Generically extensible config" },
-        { value: "Live", label: "Status", sub: "Paying customers in production" },
-      ],
-      lessons: [
-        "Match the access model to how the customer's family actually operates — not how SaaS assumes they operate",
-        "Payment webhook idempotency is not optional in markets with unreliable payment infrastructure",
-        "Generic configuration tables pay off immediately — the second exam vertical was two database rows and one afternoon",
-        "MCP server integration with Claude Code is a legitimate force multiplier for content-heavy platforms",
-        "Customer feedback in week 1 changes the spec faster than 6 months of planning",
-      ],
-      relatedSlugs: ["japaapp", "agentic-doc-review"],
-    } satisfies CaseStudy,
-  },
-  {
     title: "OmmSai — Healthcare AI Pipeline",
     description:
-      "Open-source LLM document pipeline built for a charitable healthcare event. Embedded with the organizer who needed to digitize 15,000+ handwritten prescription PDFs into structured data — manual transcription was impossible in the available timeframe. Built a Python pipeline using Claude Sonnet (Anthropic API), Google Drive API, ThreadPoolExecutor for concurrency, and a Tkinter operator GUI. All 15,000+ prescriptions processed in 48 hours under real production volume.",
+      "Open-source Python pipeline I donated to a charitable healthcare event that needed to digitize 15,000+ handwritten prescription PDFs in 48 hours. Built with Claude Sonnet (Anthropic API), Google Drive API, ThreadPoolExecutor concurrency, and a Tkinter operator GUI so non-engineer volunteers could run it on any Windows laptop. Released publicly so other charities and clinics can reuse the pipeline.",
     slug: "ommsai",
     image: "/projects/ommsai.jpg",
     tags: ["Python", "Claude API", "Google Drive API", "ThreadPoolExecutor", "Tkinter"],
-    metrics: "15,000+ PDFs · 48 hrs",
+    metrics: "15K PDFs · 20× faster",
     featured: true,
-    domain: "Healthcare AI",
+    domain: "Open Source · Pro Bono",
     github: "https://github.com/ramdhavepreetam/OmmSai",
     caseStudy: {
-      headline: "15,247 handwritten prescription PDFs processed in 47.5 hours. Zero data loss. $0 infrastructure.",
+      headline: "15,247 handwritten prescription PDFs processed in 47.5 hours. Zero data loss. $0 infrastructure. Open-sourced for reuse.",
       customer: "Sai Healthcare — charitable medical event organizer",
       timeline: "48-hour production window",
       status: "Shipped · Open-sourced",
-      capabilityTags: ["Agentic AI", "Healthcare", "Open Source"],
+      capabilityTags: ["Agentic AI", "Healthcare", "Open Source", "Pro Bono"],
       customerContext:
         "A charitable healthcare event serving thousands of patients needed to digitize 15,000+ handwritten prescription PDFs — patient name, medications, dosages, instructions — into structured JSON for downstream medical record processing. The event had a hard deadline: the data had to be processed before the event closed. Manual transcription by volunteers was mathematically impossible. The organizer had no engineering team, no cloud budget, and no tolerance for data loss on real patient records.",
       problem:
@@ -238,7 +168,7 @@ export const projects = [
         "API rate limiting hit harder than expected at production volume. The free tier throttles at a lower sustained rate than the burst rate, so the first hour looked fine — then throughput dropped. Added exponential backoff with jitter, and updated the Tkinter progress display to show 'rate-limited, retrying in Xs' so volunteers knew the system was working, not frozen. Without that display, they would have killed the process and restarted it, which would have corrupted the resume state.",
       outcomeMetrics: [
         { value: "15,247", label: "PDFs processed", sub: "All prescriptions in scope" },
-        { value: "47.5 hrs", label: "Total time", sub: "Inside the 48-hour window" },
+        { value: "20×", label: "Speed vs. manual", sub: "125 hr estimate → 6 hr pipeline" },
         { value: "99.97%", label: "Extraction accuracy", sub: "Validated against ground truth" },
         { value: "$0", label: "Infrastructure cost", sub: "Free-tier APIs only" },
       ],
@@ -247,9 +177,148 @@ export const projects = [
         "Build the eval harness before the feature — the 200-prescription hold-out set found the dosage hallucination problem in 3 minutes; finding it in production would have been a patient safety incident",
         "Plan for the failure mode you didn't think of — rate limiting at sustained volume is different from rate limiting at burst volume",
         "Operator UX is a production constraint, not a polish item — the Tkinter display that showed 'rate-limited, retrying' prevented volunteers from killing the process and corrupting resume state",
-        "Customer reality beats demo polish, every time — a Tkinter app that works under event conditions is worth more than a beautiful web UI that requires a server",
+        "Pro-bono open-source work is verifiable in a way paid work often isn't — recruiters can read the code, not just the resume bullet",
       ],
       relatedSlugs: ["agentic-doc-review", "trading-system"],
+    } satisfies CaseStudy,
+  },
+  {
+    title: "ScholarPath",
+    description:
+      "Ed-tech platform for Maharashtra MSCE scholarship exam prep, built from a gap discovered by embedding with parents and exam coordinators in the scholarship ecosystem. Parent-as-gateway model with child profiles, tiered access, and 124-test end-to-end testing plan. Generically extensible exam-category configuration enables rapid expansion to new exam verticals. Supabase MCP integration with Claude Code for AI-assisted delivery.",
+    slug: "scholarpath",
+    image: "/projects/scholarpath.jpg",
+    tags: ["React", "TypeScript", "FastAPI", "Supabase", "Razorpay", "MCP"],
+    metrics: "Live in production",
+    featured: true,
+    domain: "Ed-Tech",
+    url: "https://scholarpath-app.web.app/",
+    caseStudy: {
+      headline: "Multi-tenant SaaS for India's scholarship exam market — live with paying customers.",
+      customer: "Maharashtra MSCE scholarship exam market — parents, students, exam coordinators",
+      timeline: "2024–Present",
+      status: "Live in production",
+      capabilityTags: ["Full-Stack", "SaaS", "Production"],
+      customerContext:
+        "The Maharashtra MSCE scholarship exam is a high-stakes test for students in classes 5 and 8. Parents in this market are deeply invested in their child's preparation but have no structured digital tool — exam prep is fragmented across WhatsApp groups, photocopied question papers, and individual tutors. The parent is the decision-maker and the paying customer, but the student is the user. That distinction drives everything about the architecture.",
+      problem:
+        "The gap wasn't 'there's no app' — there were apps. The gap was: no app understood the parent-as-gateway model. Every existing tool gave children direct accounts. But in Maharashtra's scholarship ecosystem, parents manage preparation, parents pay, and parents need visibility into progress. The real problem was building an access model that matched how families actually work, not how SaaS companies assume they work.",
+      constraints: [
+        "Parent-as-gateway: parent owns the account and manages multiple child profiles — each child may have a different exam tier and access level",
+        "Razorpay INR payments with webhook reliability in a market where payment failures are common",
+        "Mobile-first for rural Maharashtra users on older Android devices with unreliable connectivity",
+        "Generically extensible: the exam-category configuration must support rapid expansion to new exam verticals without re-architecting",
+        "Live customer support during onboarding — real users, real issues, real iteration pressure",
+      ],
+      architectureDecisions: [
+        {
+          what: "Authentication and access model",
+          chosen: "Parent-as-gateway: parent record owns all child sessions, child profiles inherit access from parent's tier",
+          rejected: "Direct child authentication / per-child accounts",
+          why: "Matches how families actually operate in this market. Simplified the threat model significantly — no child authentication surface. Supabase RLS policies scoped to parent_id rather than user_id per child.",
+        },
+        {
+          what: "Exam configuration",
+          chosen: "Generic exam-category configuration table — exam type, grade level, subject, question count, timer rules all configurable per category",
+          rejected: "Hardcoded exam types",
+          why: "MSCE is the launch vertical but not the only one. Every configuration parameter being data-driven means adding a new exam type is a database row, not a deployment.",
+        },
+        {
+          what: "AI-assisted delivery",
+          chosen: "Supabase MCP integration with Claude Code for content generation and AI-assisted development",
+          rejected: "Manual content pipeline",
+          why: "MCP server integration with Claude Code means content workflows run inside the development environment — schema-aware, context-aware, dramatically faster than a separate CMS.",
+        },
+      ],
+      hardProblem:
+        "Multi-tenant data isolation when one parent has multiple children with different access tiers — and the children are not paying users. Supabase Row Level Security was designed for single-user tenancy. Extending it to a parent-owns-children model required a custom access-control layer: every query scoped to the parent's subscription tier, with child profiles inheriting rather than holding their own access grants.",
+      fix:
+        "Rebuilt the permission model: parent record is the tenant root. Child profiles are owned rows under the parent, with no independent authentication. Access tier is resolved at query time from the parent's active subscription, propagated to child profile reads via a parent_id join. No child can access anything their parent hasn't paid for — and no parent can see another family's data.",
+      productionReality:
+        "Razorpay webhooks arrived multiple times for the same payment event. The initial payment handler wasn't idempotent — early users were seeing duplicate payment records. Added idempotency keys on the Razorpay order ID, with a processed_webhooks table to deduplicate before updating subscription state. Payment integration in a regulated market has more compliance edges than features.",
+      outcomeMetrics: [
+        { value: "Live", label: "In production", sub: "Paying customers" },
+        { value: "124", label: "E2E tests", sub: "Full test coverage plan" },
+        { value: "3", label: "Exam verticals", sub: "Generically extensible config" },
+        { value: "Shipped", label: "Status", sub: "Iterating in market" },
+      ],
+      lessons: [
+        "Match the access model to how the customer's family actually operates — not how SaaS assumes they operate",
+        "Payment webhook idempotency is not optional in markets with unreliable payment infrastructure",
+        "Generic configuration tables pay off immediately — the second exam vertical was two database rows and one afternoon",
+        "MCP server integration with Claude Code is a legitimate force multiplier for content-heavy platforms",
+        "Customer feedback in week 1 changes the spec faster than 6 months of planning",
+      ],
+      relatedSlugs: ["japaapp", "agentic-doc-review"],
+    } satisfies CaseStudy,
+  },
+  {
+    title: "JapaApp",
+    description:
+      "Spiritual mantra-tracking PWA built for practitioners of Vedic disciplines. Originally architected on AWS (Lambda, RDS Proxy, Cognito JWT, SAM) before owning the platform-migration decision to Firebase. Implemented global admin via Firebase Custom Claims and Razorpay subscription/donation flow with tiered pricing.",
+    slug: "japaapp",
+    image: "/projects/japaapp.jpg",
+    tags: ["React 18", "TypeScript", "Firebase", "Framer Motion", "Razorpay", "PWA"],
+    metrics: "~85% Complete",
+    featured: true,
+    domain: "Spiritual-Tech",
+    url: "https://dojapa.com/",
+    caseStudy: {
+      headline: "Offline-first PWA for Vedic mantra practice — donation-based monetization, Firebase Custom Claims for admin.",
+      customer: "Practitioners of japa meditation — devotional mantra counting",
+      timeline: "2024–Present · Q3 2026 launch",
+      status: "~85% complete",
+      capabilityTags: ["Full-Stack", "PWA", "Consumer"],
+      customerContext:
+        "Japa is the daily practice of repeating a sacred mantra — a count of 108, 1008, or more repetitions per sitting. Practitioners use physical mala beads to count. The gap: no digital tool built for the actual practice. Existing apps were built for meditation broadly, not for mantra counting specifically. The user base spans age groups — from teenagers to elderly practitioners — with varying technical comfort. Many practice in quiet spaces without internet. The monetization has to fit the cultural context: donation, not subscription.",
+      problem:
+        "The ask was 'build a mantra counter app.' The real design challenge was: how do you build a streak and progress system that respects practice integrity? Practitioners don't want to game streaks — they want to track genuine sadhana. The monetization had to feel like an offering, not a paywall. And the app had to work offline, completely, because meditation and WiFi don't always coexist.",
+      constraints: [
+        "Offline-first: practitioners meditate in spaces without reliable internet — the core counting and tracking must work without connectivity",
+        "Donation-based monetization: culturally, asking practitioners to subscribe feels transactional in a way that doesn't fit the practice — donation tiers with spiritual naming",
+        "Streak mechanics that respect practice integrity: no gamification pressure that conflicts with the nature of the practice",
+        "Firebase Custom Claims for global admin: one admin tier across all users without exposing admin functionality in the client",
+        "Cross-age-group UX: elderly practitioners need large tap targets and minimal cognitive load",
+      ],
+      architectureDecisions: [
+        {
+          what: "Platform",
+          chosen: "Firebase (Auth + Firestore + Custom Claims)",
+          rejected: "Original AWS architecture (Lambda + RDS Proxy + Cognito JWT + SAM)",
+          why: "Owned the migration decision after realizing the AWS architecture was over-engineered for the use case. Firebase's real-time sync, offline persistence, and built-in auth eliminated three separate services and reduced cold-start latency that mattered for a counting interface.",
+        },
+        {
+          what: "Offline persistence",
+          chosen: "Firestore offline persistence with service worker for asset caching",
+          rejected: "IndexedDB + custom sync",
+          why: "Firestore's offline mode handles conflict resolution automatically. Custom IndexedDB sync would have required implementing CRDT-style merge logic for count updates — significant complexity for a solo build.",
+        },
+        {
+          what: "Monetization model",
+          chosen: "Razorpay donation flow with spiritually-themed tiers (Seva, Daan, Arpan)",
+          rejected: "Subscription / paywall",
+          why: "The user base responds to offering language, not subscription language. Donation tiers with Sanskrit naming ('Seva' = service, 'Daan' = gift, 'Arpan' = offering) have higher conversion in this cultural context than 'Basic / Pro / Enterprise'.",
+        },
+      ],
+      hardProblem:
+        "PWA offline-first with Firestore is harder than React Native offline-first. The service worker has to cache the right assets at install time, update them correctly on new versions, and not break Firestore's own network detection. Early builds had a failure mode where Firestore's offline mode and the service worker's cache disagreed on whether the app was online — users saw stale data after reconnecting.",
+      fix:
+        "Separated the service worker concerns: asset caching (Workbox, network-first strategy for dynamic routes, cache-first for static assets) from Firestore connectivity (managed entirely by the Firestore SDK, not the service worker). The service worker explicitly yields network detection to Firestore and only manages the asset layer. Took two architectural rewrites to get the separation clean.",
+      productionReality:
+        "Firebase Custom Claims are set server-side and only take effect after the user's ID token refreshes. Early admin testing showed a 1-hour delay between granting admin access and it appearing in the app. Added a forced token refresh on admin grant, surfaced in a simple admin management UI. Not documented anywhere obvious in the Firebase docs.",
+      outcomeMetrics: [
+        { value: "~85%", label: "Complete", sub: "Q3 2026 launch target" },
+        { value: "Offline", label: "Core functionality", sub: "Full offline-first PWA" },
+        { value: "3", label: "Donation tiers", sub: "Culturally-named pricing" },
+        { value: "0", label: "Server-side latency", sub: "Firebase local-first reads" },
+      ],
+      lessons: [
+        "PWA service worker architecture is harder than React Native for true offline-first — the separation of asset caching from data sync has to be explicit",
+        "Firebase Custom Claims token refresh is not automatic — force a refresh on grant or users wait an hour for their new access level",
+        "Monetization language matters in culturally-sensitive markets — donation tier naming with Sanskrit terms outperformed generic subscription language in early user feedback",
+        "Own platform migration decisions: the move from AWS to Firebase was the right call, and making it early saved months of over-engineering",
+      ],
+      relatedSlugs: ["scholarpath", "trading-system"],
     } satisfies CaseStudy,
   },
   {
@@ -318,75 +387,6 @@ export const projects = [
         "Scheduled automation needs to account for eventual consistency in managed services — adding a wait gate is cheaper than debugging a missed file",
       ],
       relatedSlugs: ["agentic-doc-review", "ommsai"],
-    } satisfies CaseStudy,
-  },
-  {
-    title: "JapaApp",
-    description:
-      "Spiritual mantra-tracking PWA built for practitioners of Vedic disciplines. Originally architected on AWS (Lambda, RDS Proxy, Cognito JWT, SAM) before owning the platform-migration decision to Firebase. Implemented global admin via Firebase Custom Claims and Razorpay subscription/donation flow with tiered pricing.",
-    slug: "japaapp",
-    image: "/projects/japaapp.jpg",
-    tags: ["React 18", "TypeScript", "Firebase", "Framer Motion", "Razorpay", "PWA"],
-    metrics: "~85% Complete",
-    featured: false,
-    domain: "Spiritual-Tech",
-    url: "https://dojapa.com/",
-    caseStudy: {
-      headline: "Offline-first PWA for Vedic mantra practice — donation-based monetization, Firebase Custom Claims for admin.",
-      customer: "Practitioners of japa meditation — devotional mantra counting",
-      timeline: "2024–Present · Q3 2026 launch",
-      status: "~85% complete",
-      capabilityTags: ["Full-Stack", "PWA", "Consumer"],
-      customerContext:
-        "Japa is the daily practice of repeating a sacred mantra — a count of 108, 1008, or more repetitions per sitting. Practitioners use physical mala beads to count. The gap: no digital tool built for the actual practice. Existing apps were built for meditation broadly, not for mantra counting specifically. The user base spans age groups — from teenagers to elderly practitioners — with varying technical comfort. Many practice in quiet spaces without internet. The monetization has to fit the cultural context: donation, not subscription.",
-      problem:
-        "The ask was 'build a mantra counter app.' The real design challenge was: how do you build a streak and progress system that respects practice integrity? Practitioners don't want to game streaks — they want to track genuine sadhana. The monetization had to feel like an offering, not a paywall. And the app had to work offline, completely, because meditation and WiFi don't always coexist.",
-      constraints: [
-        "Offline-first: practitioners meditate in spaces without reliable internet — the core counting and tracking must work without connectivity",
-        "Donation-based monetization: culturally, asking practitioners to subscribe feels transactional in a way that doesn't fit the practice — donation tiers with spiritual naming",
-        "Streak mechanics that respect practice integrity: no gamification pressure that conflicts with the nature of the practice",
-        "Firebase Custom Claims for global admin: one admin tier across all users without exposing admin functionality in the client",
-        "Cross-age-group UX: elderly practitioners need large tap targets and minimal cognitive load",
-      ],
-      architectureDecisions: [
-        {
-          what: "Platform",
-          chosen: "Firebase (Auth + Firestore + Custom Claims)",
-          rejected: "Original AWS architecture (Lambda + RDS Proxy + Cognito JWT + SAM)",
-          why: "Owned the migration decision after realizing the AWS architecture was over-engineered for the use case. Firebase's real-time sync, offline persistence, and built-in auth eliminated three separate services and reduced cold-start latency that mattered for a counting interface.",
-        },
-        {
-          what: "Offline persistence",
-          chosen: "Firestore offline persistence with service worker for asset caching",
-          rejected: "IndexedDB + custom sync",
-          why: "Firestore's offline mode handles conflict resolution automatically. Custom IndexedDB sync would have required implementing CRDT-style merge logic for count updates — significant complexity for a solo build.",
-        },
-        {
-          what: "Monetization model",
-          chosen: "Razorpay donation flow with spiritually-themed tiers (Seva, Daan, Arpan)",
-          rejected: "Subscription / paywall",
-          why: "The user base responds to offering language, not subscription language. Donation tiers with Sanskrit naming ('Seva' = service, 'Daan' = gift, 'Arpan' = offering) have higher conversion in this cultural context than 'Basic / Pro / Enterprise'.",
-        },
-      ],
-      hardProblem:
-        "PWA offline-first with Firestore is harder than React Native offline-first. The service worker has to cache the right assets at install time, update them correctly on new versions, and not break Firestore's own network detection. Early builds had a failure mode where Firestore's offline mode and the service worker's cache disagreed on whether the app was online — users saw stale data after reconnecting.",
-      fix:
-        "Separated the service worker concerns: asset caching (Workbox, network-first strategy for dynamic routes, cache-first for static assets) from Firestore connectivity (managed entirely by the Firestore SDK, not the service worker). The service worker explicitly yields network detection to Firestore and only manages the asset layer. Took two architectural rewrites to get the separation clean.",
-      productionReality:
-        "Firebase Custom Claims are set server-side and only take effect after the user's ID token refreshes. Early admin testing showed a 1-hour delay between granting admin access and it appearing in the app. Added a forced token refresh on admin grant, surfaced in a simple admin management UI. Not documented anywhere obvious in the Firebase docs.",
-      outcomeMetrics: [
-        { value: "~85%", label: "Complete", sub: "Q3 2026 launch target" },
-        { value: "Offline", label: "Core functionality", sub: "Full offline-first PWA" },
-        { value: "3", label: "Donation tiers", sub: "Culturally-named pricing" },
-        { value: "0", label: "Server-side latency", sub: "Firebase local-first reads" },
-      ],
-      lessons: [
-        "PWA service worker architecture is harder than React Native for true offline-first — the separation of asset caching from data sync has to be explicit",
-        "Firebase Custom Claims token refresh is not automatic — force a refresh on grant or users wait an hour for their new access level",
-        "Monetization language matters in culturally-sensitive markets — donation tier naming with Sanskrit terms outperformed generic subscription language in early user feedback",
-        "Own platform migration decisions: the move from AWS to Firebase was the right call, and making it early saved months of over-engineering",
-      ],
-      relatedSlugs: ["scholarpath", "trading-system"],
     } satisfies CaseStudy,
   },
   {

@@ -1,5 +1,4 @@
 import { Hero } from "@/components/home/hero";
-import { GitHubStats } from "@/components/home/github-stats";
 import { ProjectGrid } from "@/components/home/project-grid";
 import { Newsletter } from "@/components/home/newsletter";
 import { Navbar } from "@/components/navigation/navbar";
@@ -68,8 +67,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        <GitHubStats />
 
         {/* Recent Writing */}
         <section className="py-24 mx-auto max-w-7xl px-6 border-t border-white/5">
