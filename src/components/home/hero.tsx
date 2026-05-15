@@ -17,7 +17,7 @@ export function Hero() {
     <section className="relative pt-32 pb-24 overflow-hidden">
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 z-0 opacity-[0.15] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,black,transparent)]">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#5A6478_1px,transparent_1px),linear-gradient(to_bottom,#5A6478_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#6B5F4F_1px,transparent_1px),linear-gradient(to_bottom,#6B5F4F_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       </div>
 
       {/* Cyan glow */}
@@ -69,9 +69,10 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-5xl md:text-[5rem] font-serif italic text-pearl leading-[1.05]"
+            className="text-5xl md:text-[5rem] font-serif italic text-pearl leading-[1.05] headline-italic"
           >
-            I deploy AI where it has to work.
+            I deploy AI where it{" "}
+            <em>has to work.</em>
             <motion.span
               animate={{ opacity: [1, 0] }}
               transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
@@ -99,7 +100,7 @@ export function Hero() {
             {statChips.map((chip) => (
               <span
                 key={chip}
-                className="text-xs font-mono text-whisper border border-white/10 bg-white/[0.03] px-3 py-1.5 rounded-full"
+                className="text-xs font-mono text-whisper border border-cyan-electric/15 bg-cyan-electric/[0.03] px-3 py-1.5 rounded-full"
               >
                 {chip}
               </span>

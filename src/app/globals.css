@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  /* Existing tokens — values swapped to warm dark */
   --color-obsidian: #0E0C09;
   --color-slate: #171410;
   --color-midnight: #1F1B16;
@@ -12,9 +13,20 @@
   --color-gold-solar: #E8A95F;
   --color-code-green: #7FB069;
 
+  /* New editorial named tokens */
+  --color-ink: #0E0C09;
+  --color-surface: #171410;
+  --color-elevated: #1F1B16;
+  --color-bone: #F5EBDA;
+  --color-parchment: #9C8E78;
+  --color-amber: #E8A95F;
+  --color-amber-deep: #C97B3F;
+  --color-sage: #7FB069;
+  --color-coral: #D67C5F;
+
   --font-serif: var(--font-instrument-serif);
   --font-sans: var(--font-inter);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-jetbrains-mono), var(--font-geist-mono);
 
   --radius-xs: 0.125rem;
   --radius-sm: 0.25rem;
