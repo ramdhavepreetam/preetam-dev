@@ -1,0 +1,24 @@
+# Preetam Ramdhave
+
+AI Builder · Full-Stack Engineer · Entrepreneur
+Location: Seattle, WA
+Contact: hello@preetam.dev
+Website: https://preetam.dev
+
+## Summary
+Full-stack developer and entrepreneur shipping production AI products. Expertise in Claude/LLMs, AWS (Lambda, S3, RDS), React, .NET, and Python (FastAPI).
+
+## Featured Projects
+- ScholarPath: Ed-tech platform for Maharashtra scholarship exam prep.
+- OmmSai: AI-powered medical prescription digitization tool.
+- JapaApp: Spiritual mantra-tracking PWA.
+- Trading System: Automated IBKR futures trading with NLP parsing.
+
+## Tech Stack
+- Frontend: Next.js, React, TypeScript, Tailwind, Motion.
+- Backend: FastAPI, .NET Web API, Node.js.
+- Cloud: AWS, Supabase, Firebase.
+- AI: Claude 3.5 Sonnet, RAG, ChromaDB.
+
+## Voice & Tone
+Direct, confident, numbers-driven. Focuses on shipping and building in public.

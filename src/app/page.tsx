@@ -1,65 +1,145 @@
-import Image from "next/image";
+import { Hero } from "@/components/home/hero";
+import { GitHubStats } from "@/components/home/github-stats";
+import { ProjectGrid } from "@/components/home/project-grid";
+import { Newsletter } from "@/components/home/newsletter";
+import { Navbar } from "@/components/navigation/navbar";
+import { Footer } from "@/components/navigation/footer";
+import { ChatWidget } from "@/components/ai/chat-widget";
+import { outcomes, howIWork } from "@/lib/data";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <main className="flex-1">
+        <Hero />
+
+        {/* Selected Outcomes — big numbers break the visual monotony */}
+        <section className="py-16 border-y border-white/5 bg-slate/40">
+          <div className="mx-auto max-w-7xl px-6">
+            <p className="text-xs uppercase tracking-widest font-mono text-whisper mb-10 text-center">
+              Selected Outcomes — Real Customers, Real Numbers
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {outcomes.map((o) => (
+                <div key={o.unit} className="text-center">
+                  <div className="text-4xl md:text-5xl font-serif italic text-cyan-electric leading-none">
+                    {o.number}
+                  </div>
+                  <div className="text-sm font-mono text-gold-solar mt-1 mb-3 uppercase tracking-wider">
+                    {o.unit}
+                  </div>
+                  <p className="text-xs text-whisper leading-relaxed">{o.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <ProjectGrid />
+
+        {/* How I Work */}
+        <section className="py-24 border-t border-white/5">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="flex flex-col md:flex-row items-baseline justify-between gap-4 mb-12">
+              <div>
+                <h2 className="text-4xl font-serif italic text-pearl">How I Work</h2>
+                <p className="text-mist mt-2 text-sm max-w-lg">
+                  The Forward Deployed Engineer motion — same pattern across UK enterprise clients, Fortune 500, and solo founder products.
+                </p>
+              </div>
+              <Link href="/about" className="text-cyan-electric hover:underline flex items-center gap-1 text-sm font-medium shrink-0">
+                Full story <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {howIWork.map((step) => (
+                <div key={step.step} className="glass rounded-xl p-6 border border-white/5 hover:border-cyan-electric/20 transition-colors">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="text-xs font-mono text-cyan-electric/60">{step.step}</span>
+                    <h3 className="text-pearl font-semibold">{step.title}</h3>
+                  </div>
+                  <p className="text-sm text-mist leading-relaxed">{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <GitHubStats />
+
+        {/* Recent Writing */}
+        <section className="py-24 mx-auto max-w-7xl px-6 border-t border-white/5">
+          <div className="flex flex-col md:flex-row items-baseline justify-between gap-4 mb-12">
+            <h2 className="text-4xl font-serif italic text-pearl">Recent Writing</h2>
+            <Link href="/writing" className="text-cyan-electric hover:underline text-sm font-medium flex items-center gap-1">
+              Read all articles <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <ArticleCard
+              title="Agentic AI — Built for Production"
+              date="April 2026"
+              readTime="10 min read"
+              tag="AI Engineering"
+              slug="agentic-ai-production"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+            <ArticleCard
+              title="Building Big Apps with AI Coding Tools — Without Making a Mess"
+              date="January 2026"
+              readTime="12 min read"
+              tag="Building in Public"
+              slug="building-big-apps-ai-tools"
+            />
+            <ArticleCard
+              title="How I Built an AI Tool That Processed 15,000 Prescriptions in 48 Hours"
+              date="May 2026"
+              readTime="8 min read"
+              tag="AI Engineering"
+              slug="ommsai-case-study"
+            />
+          </div>
+        </section>
+
+        <Newsletter />
       </main>
+      <Footer />
+      <ChatWidget />
     </div>
+  );
+}
+
+function ArticleCard({
+  title,
+  date,
+  readTime,
+  tag,
+  slug,
+}: {
+  title: string;
+  date: string;
+  readTime: string;
+  tag: string;
+  slug: string;
+}) {
+  return (
+    <Link href={`/writing/${slug}`} className="group">
+      <div className="h-full p-8 glass rounded-2xl border border-white/5 group-hover:border-cyan-electric/30 transition-all">
+        <div className="flex items-center justify-between mb-6">
+          <span className="text-[10px] uppercase tracking-widest text-cyan-electric/70 font-mono border border-cyan-electric/20 px-2 py-0.5 rounded">
+            {tag}
+          </span>
+          <span className="text-[10px] uppercase tracking-widest text-whisper font-mono">{readTime}</span>
+        </div>
+        <h3 className="text-lg font-serif italic text-pearl group-hover:text-cyan-electric transition-colors leading-snug mb-4">
+          {title}
+        </h3>
+        <p className="text-xs text-whisper font-mono">{date}</p>
+      </div>
+    </Link>
   );
 }
