@@ -7,9 +7,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 const statChips = [
-  "15,000+ files deployed in production",
+  "15,247 prescriptions processed",
   "4 production AI systems shipped",
-  "Full-stack · Agentic AI · Fine-tuned LLMs",
+  "Full-stack · Agentic AI · AWS",
 ];
 
 export function Hero() {
@@ -27,7 +27,7 @@ export function Hero() {
         <div className="max-w-4xl">
           {/* Profile photo */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0.65, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
             className="mb-8"
@@ -38,6 +38,7 @@ export function Hero() {
                 alt="Preetam Ramdhave"
                 fill
                 className="object-cover object-top"
+                sizes="64px"
                 priority
               />
             </div>
@@ -45,7 +46,7 @@ export function Hero() {
 
           {/* Eyebrow */}
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0.65, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-cyan-electric/20 bg-cyan-electric/5 text-xs font-mono text-cyan-electric tracking-[0.2em] uppercase"
@@ -56,7 +57,7 @@ export function Hero() {
 
           {/* Name */}
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0.65, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.05 }}
             className="text-mist font-mono text-sm tracking-widest mb-4"
@@ -66,7 +67,7 @@ export function Hero() {
 
           {/* Headline */}
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0.75, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-5xl md:text-[5rem] font-serif italic text-pearl leading-[1.05] headline-italic"
@@ -82,7 +83,7 @@ export function Hero() {
 
           {/* Subtitle */}
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0.7, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-6 text-lg md:text-xl text-mist leading-relaxed max-w-2xl"
@@ -92,7 +93,7 @@ export function Hero() {
 
           {/* Stat chips */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0.7, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mt-8 flex flex-wrap gap-3"
@@ -109,7 +110,7 @@ export function Hero() {
 
           {/* CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0.7, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             className="mt-10 flex flex-wrap gap-4"

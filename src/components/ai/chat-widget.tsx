@@ -3,7 +3,7 @@
 import * as React from "react";
 import { useChat } from "@ai-sdk/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send, User, Bot, Sparkles } from "lucide-react";
+import { MessageCircle, X, Send, Bot, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -67,7 +67,7 @@ export function ChatWidget() {
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-pearl leading-none">Ask Preetam</h3>
-                  <span className="text-[10px] text-mist">Powered by Claude 3.5 Sonnet</span>
+                  <span className="text-[10px] text-mist">Powered by Claude Haiku</span>
                 </div>
               </div>
               <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
@@ -84,7 +84,7 @@ export function ChatWidget() {
                 <div className="flex flex-col items-center justify-center h-full text-center space-y-2 opacity-50">
                   <Sparkles className="h-8 w-8 text-cyan-electric" />
                   <p className="text-sm text-mist">
-                    Ask me anything about Preetam's work, tech stack, or background.
+                    Ask me anything about Preetam&apos;s work, tech stack, or background.
                   </p>
                 </div>
               )}

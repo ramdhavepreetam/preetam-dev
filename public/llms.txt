@@ -3,7 +3,7 @@
 > I deploy AI where it has to work — inside real customer environments, against real constraints, with real users on the other side.
 
 Location: Renton, WA (Seattle area), USA
-Website: https://preetamr.com
+Website: https://preetam-dev.vercel.app
 LinkedIn: https://linkedin.com/in/preetam-ramdhave
 GitHub: https://github.com/ramdhavepreetam
 Availability: Open to FDE conversations — Q3 2026 onward
@@ -46,10 +46,10 @@ Hard problem: confidence calibration on illegible medical handwriting — built 
 GitHub: https://github.com/ramdhavepreetam/OmmSai
 Outcome: 15,247 PDFs in 47.5 hours, 99.97% accuracy, $0 cost.
 
-### JapaApp (Spiritual-Tech · ~85% Complete)
+### JapaApp (Spiritual-Tech · Live in Production)
 Offline-first PWA for Vedic mantra practice. Firebase Custom Claims, Razorpay donation tiers with Sanskrit naming.
 URL: https://dojapa.com
-Launch: Q3 2026
+Status: Live in production
 
 ### IBKR Futures Automation (Fintech · Working Prototype)
 NLP-driven command interface for futures and vertical spread options trading.

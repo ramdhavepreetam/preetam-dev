@@ -187,7 +187,7 @@ export const projects = [
     description:
       "Ed-tech platform for Maharashtra MSCE scholarship exam prep, built from a gap discovered by embedding with parents and exam coordinators in the scholarship ecosystem. Parent-as-gateway model with child profiles, tiered access, and 124-test end-to-end testing plan. Generically extensible exam-category configuration enables rapid expansion to new exam verticals. Supabase MCP integration with Claude Code for AI-assisted delivery.",
     slug: "scholarpath",
-    image: "/projects/scholarpath.jpg",
+    image: "/scholarpath-screenshot.png",
     tags: ["React", "TypeScript", "FastAPI", "Supabase", "Razorpay", "MCP"],
     metrics: "Live in production",
     featured: true,
@@ -257,17 +257,17 @@ export const projects = [
     description:
       "Spiritual mantra-tracking PWA built for practitioners of Vedic disciplines. Originally architected on AWS (Lambda, RDS Proxy, Cognito JWT, SAM) before owning the platform-migration decision to Firebase. Implemented global admin via Firebase Custom Claims and Razorpay subscription/donation flow with tiered pricing.",
     slug: "japaapp",
-    image: "/projects/japaapp.jpg",
+    image: "/japaapp-screenshot.png",
     tags: ["React 18", "TypeScript", "Firebase", "Framer Motion", "Razorpay", "PWA"],
-    metrics: "~85% Complete",
+    metrics: "Live in production",
     featured: true,
     domain: "Spiritual-Tech",
     url: "https://dojapa.com/",
     caseStudy: {
-      headline: "Offline-first PWA for Vedic mantra practice — donation-based monetization, Firebase Custom Claims for admin.",
+      headline: "Offline-first PWA for Vedic mantra practice — live in production with donation-based monetization.",
       customer: "Practitioners of japa meditation — devotional mantra counting",
-      timeline: "2024–Present · Q3 2026 launch",
-      status: "~85% complete",
+      timeline: "2024–Present",
+      status: "Live in production",
       capabilityTags: ["Full-Stack", "PWA", "Consumer"],
       customerContext:
         "Japa is the daily practice of repeating a sacred mantra — a count of 108, 1008, or more repetitions per sitting. Practitioners use physical mala beads to count. The gap: no digital tool built for the actual practice. Existing apps were built for meditation broadly, not for mantra counting specifically. The user base spans age groups — from teenagers to elderly practitioners — with varying technical comfort. Many practice in quiet spaces without internet. The monetization has to fit the cultural context: donation, not subscription.",
@@ -307,7 +307,7 @@ export const projects = [
       productionReality:
         "Firebase Custom Claims are set server-side and only take effect after the user's ID token refreshes. Early admin testing showed a 1-hour delay between granting admin access and it appearing in the app. Added a forced token refresh on admin grant, surfaced in a simple admin management UI. Not documented anywhere obvious in the Firebase docs.",
       outcomeMetrics: [
-        { value: "~85%", label: "Complete", sub: "Q3 2026 launch target" },
+        { value: "Live", label: "In production", sub: "Practitioners can use it now" },
         { value: "Offline", label: "Core functionality", sub: "Full offline-first PWA" },
         { value: "3", label: "Donation tiers", sub: "Culturally-named pricing" },
         { value: "0", label: "Server-side latency", sub: "Firebase local-first reads" },

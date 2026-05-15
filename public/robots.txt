@@ -30,4 +30,4 @@ Allow: /
 User-agent: meta-externalagent
 Allow: /
 
-Sitemap: https://preetamr.com/sitemap.xml
+Sitemap: https://preetam-dev.vercel.app/sitemap.xml

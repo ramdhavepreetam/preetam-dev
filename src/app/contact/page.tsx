@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { Navbar } from "@/components/navigation/navbar";
 import { Footer } from "@/components/navigation/footer";
 import { ChatWidget } from "@/components/ai/chat-widget";
@@ -10,6 +11,8 @@ import { Mail, Copy, Check, Calendar } from "lucide-react";
 export default function ContactPage() {
   const [copied, setCopied] = React.useState(false);
   const email = "ramdhavepreetam@gmail.com";
+  const bookingMailto =
+    "mailto:ramdhavepreetam@gmail.com?subject=15-minute%20discovery%20call&body=Hi%20Preetam%2C%0A%0AI%27d%20like%20to%20book%20a%2015-minute%20discovery%20call.%0A%0AContext%3A%20";
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(email);
@@ -22,11 +25,11 @@ export default function ContactPage() {
       <Navbar />
       <main className="flex-1 py-32 mx-auto max-w-4xl px-6 text-center">
         <h1 className="text-6xl md:text-8xl font-serif italic text-pearl mb-8">
-          Let's <span className="text-cyan-electric">build</span> together.
+          Let&apos;s <span className="text-cyan-electric">build</span> together.
         </h1>
         <p className="text-xl text-mist leading-relaxed max-w-2xl mx-auto mb-16">
-          I'm always open to discussing new projects, AI automation, 
-          or the future of ed-tech.
+          I&apos;m open to production AI systems, FDE engagements, applied AI architecture,
+          and founder-led product builds.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto">
@@ -54,14 +57,14 @@ export default function ContactPage() {
             <h3 className="text-xl font-serif italic text-pearl mb-2">Book a call</h3>
             <p className="text-sm text-whisper mb-6">Quick 15-min discovery</p>
             
-            <Button className="w-full" size="lg">
-              Open Calendly
+            <Button asChild className="w-full" size="lg">
+              <Link href={bookingMailto}>Email to book</Link>
             </Button>
           </div>
         </div>
 
         <div className="mt-20 text-whisper text-sm italic">
-          "Build in public, talk in private."
+          &quot;Build in public, talk in private.&quot;
         </div>
       </main>
       <Footer />

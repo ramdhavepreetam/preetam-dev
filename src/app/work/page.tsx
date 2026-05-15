@@ -25,7 +25,7 @@ export default function WorkPage() {
             <Link key={project.slug} href={`/work/${project.slug}`} className="group">
               <div className="glass rounded-3xl overflow-hidden border border-white/5 group-hover:border-cyan-electric/30 transition-all duration-500">
                 <div className="aspect-[16/10] bg-midnight relative overflow-hidden">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,217,255,0.05),transparent)]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,169,95,0.08),transparent)]" />
                   <div className="absolute inset-0 flex items-center justify-center text-pearl/10 font-serif italic text-6xl group-hover:scale-110 transition-transform duration-700">
                     {project.title}
                   </div>

@@ -36,11 +36,11 @@ Architecture: React 18 + TypeScript + Vite + Framer Motion + Tailwind. FastAPI b
 Hard problem: Multi-tenant data isolation when one parent has multiple children with different access tiers. Built parent-as-gateway permission model: parent record owns all child sessions.
 Outcome: Production live with real users. 1,000+ students. Auth, payments, multi-tenant access, exam content, progress tracking shipped.
 
-3. JapaApp — Spiritual Practice PWA (~85% Complete)
+3. JapaApp — Spiritual Practice PWA (Live in Production)
 URL: dojapa.com
 Problem: Vedic mantra tracking meets modern UX. Offline-first PWA, donation-based monetization, daily streak mechanics.
 Architecture: React 18 + TypeScript + Firebase Auth + Firestore + Custom Claims for admin. Razorpay donations with spiritually-themed tiers. Service worker for offline-first behavior.
-Status: ~85% complete, Q3 2026 launch target.
+Status: Live in production.
 
 4. IBKR Futures Automation — Trading System (Working Prototype)
 Problem: Natural-language trading commands for retail futures and vertical spread options strategies.

@@ -1,6 +1,13 @@
 import Link from "next/link";
+import Image from "next/image";
 import { projects } from "@/lib/data";
 import { ArrowUpRight } from "lucide-react";
+
+const projectVisuals: Record<string, string> = {
+  "agentic-doc-review": "/projects/agentic-architecture.png",
+  scholarpath: "/scholarpath-screenshot.png",
+  japaapp: "/japaapp-screenshot.png",
+};
 
 export function ProjectGrid() {
   const featured = projects.filter((p) => p.featured).slice(0, 4);
@@ -18,20 +25,35 @@ export function ProjectGrid() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {featured.map((project, idx) => (
+        {featured.map((project) => (
           <Link key={project.slug} href={`/deployments/${project.slug}`}>
             <div className="group relative glass rounded-2xl overflow-hidden border border-white/5 hover:border-cyan-electric/30 transition-all duration-300 h-full">
               <div className="aspect-video bg-midnight relative overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,217,255,0.07),transparent)]" />
+                {projectVisuals[project.slug] ? (
+                  <>
+                    <Image
+                      src={projectVisuals[project.slug]}
+                      alt={`${project.title} screenshot`}
+                      fill
+                      className="object-cover object-top opacity-85 transition-transform duration-700 group-hover:scale-[1.03]"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/10 to-transparent" />
+                  </>
+                ) : (
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,169,95,0.1),transparent)]" />
+                )}
                 {/* Domain label */}
                 <div className="absolute top-4 left-4">
                   <span className="text-[10px] uppercase tracking-widest font-mono text-cyan-electric/70 border border-cyan-electric/20 bg-obsidian/60 px-2 py-1 rounded backdrop-blur-sm">
                     {project.domain}
                   </span>
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center text-pearl/[0.06] font-serif italic text-5xl group-hover:scale-105 transition-transform duration-500 text-center px-8">
-                  {project.title}
-                </div>
+                {!projectVisuals[project.slug] && (
+                  <div className="absolute inset-0 flex items-center justify-center text-pearl/[0.06] font-serif italic text-5xl group-hover:scale-105 transition-transform duration-500 text-center px-8">
+                    {project.title}
+                  </div>
+                )}
               </div>
 
               <div className="p-8">

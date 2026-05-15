@@ -33,7 +33,7 @@ const experience = [
     highlights: [
       "OmmSai: LLM document pipeline processing 15,000+ handwritten prescription PDFs in 48 hours for a charitable healthcare event. Claude Sonnet + Google Drive API + ThreadPoolExecutor + Tkinter GUI. Open-sourced.",
       "ScholarPath: Active production ed-tech platform for Maharashtra MSCE scholarship exam prep. React + TypeScript + FastAPI + Supabase + Razorpay. Parent-as-gateway model, 1,000+ students.",
-      "JapaApp: Spiritual mantra-tracking PWA (~85% complete). Originally on AWS (Lambda, RDS Proxy, Cognito, SAM); owned the migration decision to Firebase. Razorpay tiered subscription/donation flow.",
+      "JapaApp: Spiritual mantra-tracking PWA live in production. Originally on AWS (Lambda, RDS Proxy, Cognito, SAM); owned the migration decision to Firebase. Razorpay tiered donation flow.",
       "Trading System: Automated IBKR futures trading with vertical spread options, NLP command parsing, React dashboard.",
     ],
   },

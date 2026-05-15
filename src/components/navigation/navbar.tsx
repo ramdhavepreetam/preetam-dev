@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 
 const navItems = [
   { name: "Deployments", href: "/deployments" },
@@ -17,6 +18,7 @@ const navItems = [
 
 export function Navbar() {
   const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -48,18 +50,56 @@ export function Navbar() {
               {item.name}
             </Link>
           ))}
-          <Link href="/contact">
-            <Button variant="outline" size="sm">
+          <Button asChild variant="outline" size="sm">
+            <Link href="/contact">
               Contact
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </nav>
 
-        {/* Mobile menu would go here - simplified for now */}
         <div className="flex md:hidden">
-          {/* Add mobile trigger */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setMobileOpen((open) => !open)}
+            aria-label={mobileOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
+          >
+            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
         </div>
       </div>
+
+      {mobileOpen && (
+        <motion.nav
+          id="mobile-navigation"
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="md:hidden border-t border-white/5 bg-obsidian/95 px-6 py-5 shadow-2xl"
+        >
+          <div className="flex flex-col gap-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className={cn(
+                  "rounded-md px-3 py-3 text-base font-medium transition-colors",
+                  pathname === item.href
+                    ? "bg-cyan-electric/10 text-cyan-electric"
+                    : "text-mist hover:bg-white/5 hover:text-pearl"
+                )}
+              >
+                {item.name}
+              </Link>
+            ))}
+            <Button asChild className="mt-3 w-full" size="lg">
+              <Link href="/contact" onClick={() => setMobileOpen(false)}>Contact</Link>
+            </Button>
+          </div>
+        </motion.nav>
+      )}
 
       {isArticle && (
         <motion.div

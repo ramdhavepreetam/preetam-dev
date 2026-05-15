@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://preetam-dev.vercel.app";
+
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
@@ -34,7 +36,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Preetam Ramdhave | Forward Deployed Engineer",
     description: "I deploy AI where it has to work — production deployments inside real customer environments. Claude API, AWS, full-stack. Based in Seattle.",
-    url: "https://preetamr.com",
+    url: siteUrl,
     siteName: "Preetam Ramdhave",
     locale: "en_US",
     type: "website",
@@ -70,8 +72,8 @@ const jsonLd = {
   name: "Preetam Ramdhave",
   jobTitle: "Forward Deployed Engineer",
   description: "I deploy AI where it has to work — production deployments inside real customer environments. Claude API, AWS, full-stack. Based in Seattle.",
-  url: "https://preetamr.com",
-  image: "https://preetamr.com/preetam-profile.jpg",
+  url: siteUrl,
+  image: `${siteUrl}/preetam-profile.jpg`,
   email: "mailto:ramdhavepreetam@gmail.com",
   address: {
     "@type": "PostalAddress",
