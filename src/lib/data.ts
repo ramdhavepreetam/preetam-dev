@@ -30,6 +30,7 @@ export const projects = [
     metrics: "60–80% effort reduction",
     featured: true,
     domain: "Enterprise AI",
+    architectureImage: "/projects/agentic-architecture.png",
     caseStudy: {
       headline: "60–80% reduction in manual document review effort — Fortune 500's first production agentic AI workflow.",
       customer: "Fortune 500 Industrial Manufacturing Enterprise (PPD Division)",

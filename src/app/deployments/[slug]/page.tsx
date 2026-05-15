@@ -5,6 +5,7 @@ import { ChatWidget } from "@/components/ai/chat-widget";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ExternalLink, CheckCircle, XCircle } from "lucide-react";
 import { Github } from "@/components/icons/social-icons";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -152,6 +153,24 @@ export default async function DeploymentPage({ params }: { params: Promise<{ slu
                 ))}
               </div>
             </section>
+
+            {/* Architecture Diagram */}
+            {project.architectureImage && (
+              <section>
+                <p className="text-xs font-mono text-cyan-electric/70 tracking-[0.2em] uppercase mb-4">Architecture</p>
+                <h2 className="text-2xl font-serif italic text-pearl mb-6">System design</h2>
+                <div className="glass rounded-2xl border border-white/5 overflow-hidden">
+                  <Image
+                    src={project.architectureImage}
+                    alt={`${project.title} architecture diagram`}
+                    width={1200}
+                    height={675}
+                    className="w-full h-auto"
+                    priority
+                  />
+                </div>
+              </section>
+            )}
 
             {/* Architecture Decisions */}
             <section>
