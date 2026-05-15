@@ -1,28 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
-const roles = [
-  "Forward Deployed Engineer.",
-  "AI Agent Architect.",
-  "AWS Solutions Architect.",
-  "Full-Stack Engineer.",
+const statChips = [
+  "15,000+ files deployed in production",
+  "4 production AI systems shipped",
+  "Full-stack · Agentic AI · Fine-tuned LLMs",
 ];
 
 export function Hero() {
-  const [index, setIndex] = React.useState(0);
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % roles.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, []);
-
   return (
     <section className="relative pt-32 pb-24 overflow-hidden">
       {/* Background Grid Pattern */}
@@ -30,82 +19,89 @@ export function Hero() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#5A6478_1px,transparent_1px),linear-gradient(to_bottom,#5A6478_1px,transparent_1px)] bg-[size:4rem_4rem]" />
       </div>
 
-      {/* Cyan glow blob */}
+      {/* Cyan glow */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-electric/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div className="max-w-4xl">
-          {/* Experience badge */}
+          {/* Eyebrow */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-full border border-cyan-electric/20 bg-cyan-electric/5 text-xs font-mono text-cyan-electric tracking-wider uppercase"
+            className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-cyan-electric/20 bg-cyan-electric/5 text-xs font-mono text-cyan-electric tracking-[0.2em] uppercase"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-cyan-electric animate-pulse" />
-            17+ Years · Enterprise · Founder · Renton, WA
+            Forward Deployed Engineer · Seattle, WA
           </motion.div>
 
+          {/* Name */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.05 }}
+            className="text-mist font-mono text-sm tracking-widest mb-4"
+          >
+            Preetam Ramdhave
+          </motion.p>
+
+          {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="text-6xl md:text-8xl font-serif italic text-pearl leading-[1.05]"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-5xl md:text-[5rem] font-serif italic text-pearl leading-[1.05]"
           >
-            Preetam Ramdhave
+            I deploy AI where it has to work.
             <motion.span
               animate={{ opacity: [1, 0] }}
-              transition={{ repeat: Infinity, duration: 0.8, ease: "easeInOut" }}
-              className="inline-block ml-1 h-[0.8em] w-[4px] bg-cyan-electric translate-y-[0.1em]"
+              transition={{ repeat: Infinity, duration: 1, ease: "easeInOut" }}
+              className="inline-block ml-2 h-[0.8em] w-[3px] bg-cyan-electric translate-y-[0.1em]"
             />
           </motion.h1>
 
-          <div className="mt-6 h-10">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={roles[index]}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.25 }}
-                className="text-2xl md:text-3xl text-cyan-electric font-medium"
-              >
-                {roles[index]}
-              </motion.p>
-            </AnimatePresence>
-          </div>
-
+          {/* Subtitle */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-8 text-lg md:text-xl text-mist leading-relaxed max-w-2xl"
+            className="mt-6 text-lg md:text-xl text-mist leading-relaxed max-w-2xl"
           >
-            I embed with the customer, find the real problem, build it end-to-end, and ship it.
-            Enterprise AI workflows at Fortune 500 scale. Production founder products across four domains.
-            17+ years of the same motion — the customer changes, the craft does not.
+            Production deployments inside real customer environments. Claude API, AWS, full-stack. Based in Seattle.
           </motion.p>
 
+          {/* Stat chips */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.35 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-8 flex flex-wrap gap-3"
+          >
+            {statChips.map((chip) => (
+              <span
+                key={chip}
+                className="text-xs font-mono text-whisper border border-white/10 bg-white/[0.03] px-3 py-1.5 rounded-full"
+              >
+                {chip}
+              </span>
+            ))}
+          </motion.div>
+
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
             className="mt-10 flex flex-wrap gap-4"
           >
-            <Link href="/work">
+            <Link href="/deployments">
               <Button size="lg">
-                View Projects
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/about">
-              <Button variant="outline" size="lg">
-                Read My Story
+                See deployments →
               </Button>
             </Link>
             <Link href="/contact">
-              <Button variant="ghost" size="lg" className="text-mist hover:text-pearl">
-                Get in Touch
+              <Button variant="outline" size="lg" className="text-cyan-electric border-cyan-electric/30 hover:bg-cyan-electric/5">
+                Available for engagements
               </Button>
             </Link>
           </motion.div>

@@ -21,22 +21,22 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Preetam Ramdhave | AI Builder & Entrepreneur",
+    default: "Preetam Ramdhave | Forward Deployed Engineer",
     template: "%s | Preetam Ramdhave",
   },
-  description: "I build AI-powered products that ship — from ed-tech platforms to healthcare automation. Based in Seattle.",
+  description: "I deploy AI where it has to work — production deployments inside real customer environments. Claude API, AWS, full-stack. Based in Seattle.",
   openGraph: {
-    title: "Preetam Ramdhave | AI Builder & Entrepreneur",
-    description: "I build AI-powered products that ship — from ed-tech platforms to healthcare automation. Based in Seattle.",
-    url: "https://preetam.dev",
+    title: "Preetam Ramdhave | Forward Deployed Engineer",
+    description: "I deploy AI where it has to work — production deployments inside real customer environments. Claude API, AWS, full-stack. Based in Seattle.",
+    url: "https://preetamr.com",
     siteName: "Preetam Ramdhave",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Preetam Ramdhave | AI Builder & Entrepreneur",
-    description: "I build AI-powered products that ship.",
+    title: "Preetam Ramdhave | Forward Deployed Engineer",
+    description: "I deploy AI where it has to work.",
     creator: "@preetamramdhave",
   },
   robots: {

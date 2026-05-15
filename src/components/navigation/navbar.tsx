@@ -8,11 +8,11 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
-  { name: "Work", href: "/work" },
+  { name: "Deployments", href: "/deployments" },
+  { name: "Playbook", href: "/playbook" },
   { name: "Writing", href: "/writing" },
   { name: "About", href: "/about" },
   { name: "Now", href: "/now" },
-  { name: "Uses", href: "/uses" },
 ];
 
 export function Navbar() {

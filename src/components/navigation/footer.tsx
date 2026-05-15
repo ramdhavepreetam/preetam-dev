@@ -18,7 +18,7 @@ export function Footer() {
             Preetam Ramdhave
           </span>
           <p className="text-sm text-whisper">
-            © {new Date().getFullYear()} — Built with passion in Seattle.
+            © {new Date().getFullYear()} — Applied AI · Production deployments · Seattle.
           </p>
         </div>
 

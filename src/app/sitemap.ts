@@ -7,10 +7,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     '',
     '/about',
-    '/work',
+    '/deployments',
     '/writing',
+    '/playbook',
     '/now',
-    '/uses',
     '/speaking',
     '/contact',
     '/ai',
@@ -22,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const projectRoutes = projects.map((project) => ({
-    url: `${baseUrl}/work/${project.slug}`,
+    url: `${baseUrl}/deployments/${project.slug}`,
     lastModified: new Date().toISOString(),
     changeFrequency: 'monthly' as const,
     priority: 0.6,

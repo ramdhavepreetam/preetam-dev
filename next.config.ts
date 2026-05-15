@@ -3,9 +3,12 @@ import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
-  // For Vercel AI SDK and streaming
-  experimental: {
-    // any experimental features if needed
+  experimental: {},
+  async redirects() {
+    return [
+      { source: "/work", destination: "/deployments", permanent: true },
+      { source: "/work/:slug", destination: "/deployments/:slug", permanent: true },
+    ];
   },
 };
 

@@ -8,7 +8,7 @@ import { ArrowRight, ArrowUpRight, Shield, Layers, Zap, Globe, Award, BookOpen }
 export const metadata = {
   title: "About",
   description:
-    "17+ years of the same motion: embed with the customer, find the real problem, build it end-to-end, ship it. Forward Deployed Engineer · AI Agent Architect · AWS Solutions Architect.",
+    "Forward Deployed Engineer with 17+ years embedding with customers, finding the real problem, and shipping production AI systems end-to-end.",
 };
 
 const experience = [
@@ -31,7 +31,7 @@ const experience = [
     period: "2018 — Present",
     highlights: [
       "OmmSai: LLM document pipeline processing 15,000+ handwritten prescription PDFs in 48 hours for a charitable healthcare event. Claude Sonnet + Google Drive API + ThreadPoolExecutor + Tkinter GUI. Open-sourced.",
-      "ScholarPath: Active production ed-tech platform for Maharashtra MSCE scholarship exam prep. React + TypeScript + FastAPI + Supabase + Razorpay. Parent-as-gateway model, 124-test E2E testing plan.",
+      "ScholarPath: Active production ed-tech platform for Maharashtra MSCE scholarship exam prep. React + TypeScript + FastAPI + Supabase + Razorpay. Parent-as-gateway model, 1,000+ students.",
       "JapaApp: Spiritual mantra-tracking PWA (~85% complete). Originally on AWS (Lambda, RDS Proxy, Cognito, SAM); owned the migration decision to Firebase. Razorpay tiered subscription/donation flow.",
       "Trading System: Automated IBKR futures trading with vertical spread options, NLP command parsing, React dashboard.",
     ],
@@ -54,7 +54,7 @@ const competencies = [
   {
     icon: Zap,
     title: "AI / LLM",
-    items: ["Agentic AI workflows", "RAG", "AWS Bedrock", "AWS Kendra GenAI", "Claude API", "OpenAI API", "Ollama", "ChromaDB", "MCP servers", "Prompt engineering", "Prompt-injection defense", "JSON-schema-constrained reasoning"],
+    items: ["Agentic AI workflows", "RAG", "AWS Bedrock", "AWS Kendra GenAI", "Claude API", "OpenAI API", "Ollama", "ChromaDB", "MCP servers", "Prompt engineering", "Prompt-injection defense", "JSON-schema-constrained reasoning", "Fine-tuned 7B model deployment"],
   },
   {
     icon: Globe,
@@ -88,16 +88,93 @@ export default function AboutPage() {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <main className="flex-1">
-        {/* Hero */}
+
+        {/* Hero — The Realization Hook */}
         <section className="pt-32 pb-16 mx-auto max-w-4xl px-6">
-          <h1 className="text-6xl md:text-8xl font-serif italic text-pearl mb-6 leading-[1.05]">
-            The story <span className="text-cyan-electric">so far.</span>
+          <p className="text-xs font-mono text-cyan-electric/70 tracking-[0.2em] uppercase mb-6">
+            Forward Deployed Engineer
+          </p>
+          <h1 className="text-6xl md:text-8xl font-serif italic text-pearl mb-8 leading-[1.05]">
+            The work <span className="text-cyan-electric">speaks.</span>
           </h1>
           <p className="text-xl text-mist leading-relaxed max-w-2xl">
-            17+ years. Every system I have shipped has come out of the same motion: embed with the customer,
-            study how they actually work, identify the real problem, design and build the solution end-to-end,
-            ship it, operate it, iterate. The customer changes — the motion does not.
+            I realized something early: the best software in the world doesn't matter if it doesn't fit where
+            the customer actually lives. The constraints, the legacy systems, the organizational politics, the
+            user who is tired and just wants to get through their day. You can't spec your way to that understanding.
+            You have to be there.
           </p>
+        </section>
+
+        {/* Origin Story */}
+        <section className="py-16 border-y border-white/5 bg-slate/20">
+          <div className="mx-auto max-w-4xl px-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+              <div>
+                <h2 className="text-2xl font-serif italic text-pearl mb-4">Where it started</h2>
+                <p className="text-mist leading-relaxed text-sm mb-4">
+                  It started at KPIT in 2008. I was 25, shipped to UK enterprise clients as the single point of
+                  contact between an offshore engineering team and a customer who had very specific, very real
+                  problems. No PM buffer. No requirements handed down from above. You sat with the customer,
+                  you learned how they worked, and you built for their reality.
+                </p>
+                <p className="text-mist leading-relaxed text-sm">
+                  Eight years. Three "Delighted Customer" awards voted by the clients themselves. I didn't know
+                  it had a name yet — Forward Deployed Engineering — but the motion was already set: embed,
+                  discover, design, ship, operate, generalize.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-2xl font-serif italic text-pearl mb-4">The evolution</h2>
+                <p className="text-mist leading-relaxed text-sm mb-4">
+                  In 2018 I moved to Seattle and started applying the same motion to AI — first as an internal
+                  FDE at a Fortune 500 industrial manufacturer, then as a founder shipping production products
+                  across ed-tech, healthcare, and spiritual-tech.
+                </p>
+                <p className="text-mist leading-relaxed text-sm">
+                  The tools changed. The motion didn't. The customer is still in the room. The problem is still
+                  never the stated problem. The work still has to survive contact with production.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* The 15,000 Prescription Proof Moment */}
+        <section className="py-16 mx-auto max-w-4xl px-6">
+          <div className="glass rounded-2xl p-10 border border-cyan-electric/10">
+            <p className="text-xs font-mono text-cyan-electric/70 tracking-[0.2em] uppercase mb-4">Proof moment</p>
+            <h2 className="text-2xl font-serif italic text-pearl mb-4">15,247 prescriptions. 48 hours. Zero data loss.</h2>
+            <p className="text-mist leading-relaxed text-sm mb-4">
+              A healthcare charity needed 15,000+ handwritten prescription PDFs converted to structured JSON
+              for a medical event. The deadline was the event itself — 48 hours away. Manual transcription was
+              mathematically impossible.
+            </p>
+            <p className="text-mist leading-relaxed text-sm mb-6">
+              I built a Python pipeline using Claude Sonnet, Google Drive API, and ThreadPoolExecutor with 8
+              parallel workers. The hard part wasn't the throughput — it was the eval problem. Claude was
+              confident on prescriptions it shouldn't have been, hallucinating dosages on illegible scans.
+              I built an eval harness: a hold-out set of 200 known prescriptions, automated diff against
+              ground truth, confidence-threshold gating. Anything below 0.85 routed to human review.
+            </p>
+            <div className="flex flex-wrap gap-6">
+              {[
+                { n: "15,247", u: "PDFs processed" },
+                { n: "47.5 hrs", u: "Inside the window" },
+                { n: "99.97%", u: "Extraction accuracy" },
+                { n: "$0", u: "Infrastructure cost" },
+              ].map((s) => (
+                <div key={s.u}>
+                  <div className="text-2xl font-serif italic text-cyan-electric">{s.n}</div>
+                  <div className="text-xs font-mono text-whisper mt-0.5">{s.u}</div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6">
+              <Link href="/deployments/ommsai" className="text-sm text-cyan-electric hover:underline flex items-center gap-1 w-fit">
+                Full case study <ArrowUpRight className="h-3 w-3" />
+              </Link>
+            </div>
+          </div>
         </section>
 
         {/* Outcomes strip */}
@@ -121,11 +198,30 @@ export default function AboutPage() {
         </section>
 
         <div className="mx-auto max-w-4xl px-6 py-20">
+
+          {/* Why FDE work */}
+          <section className="mb-20">
+            <h2 className="text-3xl font-serif italic text-pearl mb-6">Why this work</h2>
+            <div className="space-y-4 text-mist leading-relaxed">
+              <p>
+                Most software is built for a spec. FDE work is built for a reality. The customer's reality —
+                their legacy systems, their team's actual skill level, their budget, their deadline, their
+                ambiguity. That gap between spec and reality is where most AI deployments fail. It's also where
+                I do my best work.
+              </p>
+              <p>
+                I don't build demos. I build systems that customers depend on when the event is tomorrow and
+                the stakes are real. That requires a different kind of ownership — not just "I shipped the code"
+                but "I was there when it ran in production, and I fixed what broke."
+              </p>
+            </div>
+          </section>
+
           {/* How I Work */}
           <section id="how-i-work" className="mb-20">
-            <h2 className="text-3xl font-serif italic text-pearl mb-2">How I Work</h2>
+            <h2 className="text-3xl font-serif italic text-pearl mb-2">The motion</h2>
             <p className="text-mist text-sm mb-10">
-              The Forward Deployed Engineer model — set at KPIT with UK clients, refined across Fortune 500 and solo founder products.
+              Set at KPIT with UK clients. Refined across Fortune 500 and solo founder products.
             </p>
             <div className="space-y-4">
               {[
@@ -204,38 +300,6 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Thought Leadership */}
-          <section id="writing" className="mb-20">
-            <h2 className="text-3xl font-serif italic text-pearl mb-6">Thought Leadership</h2>
-            <div className="space-y-4">
-              {[
-                {
-                  title: "Agentic AI — Built for Production",
-                  date: "April 2026",
-                  desc: "Production security, auditability, and deterministic outputs for enterprise agent workflows; event-driven ingestion, RAG grounding, prompt-injection defense, structured decision logging.",
-                  slug: "agentic-ai-production",
-                },
-                {
-                  title: "Building Big Apps with AI Coding Tools — Without Making a Mess",
-                  date: "January 2026",
-                  desc: "Modular architecture, guardrails, and AI-assisted development at scale; vertical slices, contract-first design, when to keep humans in the loop.",
-                  slug: "building-big-apps-ai-tools",
-                },
-              ].map((article) => (
-                <Link key={article.slug} href={`/writing/${article.slug}`} className="group flex gap-6 glass rounded-xl p-6 border border-white/5 hover:border-cyan-electric/30 transition-colors">
-                  <div className="flex-1">
-                    <h3 className="text-pearl font-serif italic text-lg group-hover:text-cyan-electric transition-colors leading-snug mb-2">
-                      {article.title}
-                    </h3>
-                    <p className="text-sm text-mist leading-relaxed">{article.desc}</p>
-                    <p className="text-xs font-mono text-whisper mt-3">{article.date}</p>
-                  </div>
-                  <ArrowUpRight className="h-4 w-4 text-whisper group-hover:text-cyan-electric transition-colors shrink-0 mt-1" />
-                </Link>
-              ))}
-            </div>
-          </section>
-
           {/* Education & Certs */}
           <section id="education" className="mb-20">
             <h2 className="text-3xl font-serif italic text-pearl mb-6">Education & Certifications</h2>
@@ -259,13 +323,36 @@ export default function AboutPage() {
             </p>
           </section>
 
-          {/* Seattle note */}
+          {/* What I'm looking for next */}
+          <section className="mb-20">
+            <h2 className="text-3xl font-serif italic text-pearl mb-6">What I'm looking for next</h2>
+            <p className="text-mist leading-relaxed text-sm mb-6">
+              FDE and applied AI engineering roles at AI labs, enterprise AI deployments, and AI-native
+              scaleups — Anthropic, OpenAI, Palantir, Ramp, Sierra, and similar. Organizations where the
+              question isn't "should we use AI" but "how do we make it actually work for our customers."
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[
+                { title: "Best fit", items: "AI labs · Enterprise AI deployments · Agentic AI scaleups" },
+                { title: "Open to", items: "Consulting · Fractional FDE · Technical advisor" },
+                { title: "Not exploring", items: "Full-time at non-AI companies" },
+              ].map((col) => (
+                <div key={col.title} className="glass rounded-xl p-5 border border-white/5">
+                  <p className="text-xs font-mono text-cyan-electric/70 uppercase tracking-widest mb-2">{col.title}</p>
+                  <p className="text-sm text-mist leading-relaxed">{col.items}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Personal — Seattle / Maharashtra / Japa */}
           <section className="mb-20">
             <div className="glass rounded-2xl p-8 border border-white/5">
               <p className="text-mist leading-relaxed text-sm">
                 Based in Renton, WA — in the shadow of Boeing and a short drive from Amazon, Microsoft, and
-                the rest of the Pacific Northwest tech corridor. Still use Marathi phrases in internal docs
-                as a nod to where it started. आपलं काम बोलतं — the work speaks.
+                the rest of the Pacific Northwest tech corridor. Grew up in Maharashtra, India; still use
+                Marathi phrases in internal docs as a nod to where it started. I practice japa — daily
+                mantra repetition, which is partly why I built JapaApp. आपलं काम बोलतं — the work speaks.
               </p>
             </div>
           </section>

@@ -9,17 +9,17 @@ export function ProjectGrid() {
     <section className="py-24 mx-auto max-w-7xl px-6 border-t border-white/5">
       <div className="flex flex-col md:flex-row items-baseline justify-between gap-4 mb-12">
         <div>
-          <h2 className="text-4xl font-serif italic text-pearl">Featured Work</h2>
-          <p className="text-mist text-sm mt-2">Enterprise AI · Ed-Tech · Healthcare · Fintech</p>
+          <h2 className="text-4xl font-serif italic text-pearl">Featured Deployments</h2>
+          <p className="text-mist text-sm mt-2">Full-Stack · Agentic AI · Healthcare · Ed-Tech</p>
         </div>
-        <Link href="/work" className="text-cyan-electric hover:underline flex items-center gap-1 text-sm font-medium shrink-0">
-          View all projects <ArrowUpRight className="h-4 w-4" />
+        <Link href="/deployments" className="text-cyan-electric hover:underline flex items-center gap-1 text-sm font-medium shrink-0">
+          View all deployments <ArrowUpRight className="h-4 w-4" />
         </Link>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {featured.map((project, idx) => (
-          <Link key={project.slug} href={`/work/${project.slug}`}>
+          <Link key={project.slug} href={`/deployments/${project.slug}`}>
             <div className="group relative glass rounded-2xl overflow-hidden border border-white/5 hover:border-cyan-electric/30 transition-all duration-300 h-full">
               <div className="aspect-video bg-midnight relative overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,217,255,0.07),transparent)]" />
