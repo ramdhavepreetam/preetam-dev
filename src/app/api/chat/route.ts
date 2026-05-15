@@ -89,7 +89,7 @@ export async function POST(req: Request) {
   const { messages } = await req.json();
 
   const result = streamText({
-    model: anthropic('claude-sonnet-4-6'),
+    model: anthropic('claude-haiku-4-5-20251001'),
     messages: await convertToModelMessages(messages),
     system: systemPrompt,
   });
