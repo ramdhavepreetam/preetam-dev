@@ -6,7 +6,7 @@ const socialLinks = [
   { icon: Github, href: "https://github.com/ramdhavepreetam", label: "GitHub" },
   { icon: Linkedin, href: "https://linkedin.com/in/preetam-ramdhave", label: "LinkedIn" },
   { icon: Twitter, href: "https://x.com/preetamramdhave", label: "X" },
-  { icon: Mail, href: "mailto:hello@preetamr.com", label: "Email" },
+  { icon: Mail, href: "mailto:ramdhavepreetam@gmail.com", label: "Email" },
 ];
 
 export function Footer() {

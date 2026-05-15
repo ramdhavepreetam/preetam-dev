@@ -66,7 +66,7 @@ const jsonLd = {
   description: "I deploy AI where it has to work — production deployments inside real customer environments. Claude API, AWS, full-stack. Based in Seattle.",
   url: "https://preetamr.com",
   image: "https://preetamr.com/preetam-profile.jpg",
-  email: "mailto:hello@preetamr.com",
+  email: "mailto:ramdhavepreetam@gmail.com",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Renton",

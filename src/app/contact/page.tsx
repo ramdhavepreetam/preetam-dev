@@ -9,7 +9,7 @@ import { Mail, Copy, Check, Calendar } from "lucide-react";
 
 export default function ContactPage() {
   const [copied, setCopied] = React.useState(false);
-  const email = "hello@preetamr.com";
+  const email = "ramdhavepreetam@gmail.com";
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(email);
