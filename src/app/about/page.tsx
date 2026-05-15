@@ -2,6 +2,7 @@ import { Navbar } from "@/components/navigation/navbar";
 import { Footer } from "@/components/navigation/footer";
 import { ChatWidget } from "@/components/ai/chat-widget";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Shield, Layers, Zap, Globe, Award, BookOpen } from "lucide-react";
 
@@ -91,9 +92,21 @@ export default function AboutPage() {
 
         {/* Hero — The Realization Hook */}
         <section className="pt-32 pb-16 mx-auto max-w-4xl px-6">
-          <p className="text-xs font-mono text-cyan-electric/70 tracking-[0.2em] uppercase mb-6">
-            Forward Deployed Engineer
-          </p>
+          <div className="flex items-center gap-5 mb-8">
+            <div className="relative h-20 w-20 rounded-full overflow-hidden ring-2 ring-cyan-electric/30 ring-offset-2 ring-offset-obsidian shrink-0">
+              <Image
+                src="/preetam-profile.jpg"
+                alt="Preetam Ramdhave"
+                fill
+                className="object-cover object-top"
+                priority
+              />
+            </div>
+            <div>
+              <p className="text-pearl font-semibold">Preetam Ramdhave</p>
+              <p className="text-xs font-mono text-cyan-electric/70 tracking-[0.2em] uppercase mt-1">Forward Deployed Engineer · Seattle, WA</p>
+            </div>
+          </div>
           <h1 className="text-6xl md:text-8xl font-serif italic text-pearl mb-8 leading-[1.05]">
             The work <span className="text-cyan-electric">speaks.</span>
           </h1>

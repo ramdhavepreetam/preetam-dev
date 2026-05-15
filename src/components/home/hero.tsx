@@ -3,6 +3,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
 
 const statChips = [
@@ -24,6 +25,24 @@ export function Hero() {
 
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div className="max-w-4xl">
+          {/* Profile photo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
+            className="mb-8"
+          >
+            <div className="relative h-16 w-16 rounded-full overflow-hidden ring-2 ring-cyan-electric/30 ring-offset-2 ring-offset-obsidian">
+              <Image
+                src="/preetam-profile.jpg"
+                alt="Preetam Ramdhave"
+                fill
+                className="object-cover object-top"
+                priority
+              />
+            </div>
+          </motion.div>
+
           {/* Eyebrow */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}

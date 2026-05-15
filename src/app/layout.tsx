@@ -58,6 +58,32 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Preetam Ramdhave",
+  jobTitle: "Forward Deployed Engineer",
+  description: "I deploy AI where it has to work — production deployments inside real customer environments. Claude API, AWS, full-stack. Based in Seattle.",
+  url: "https://preetamr.com",
+  image: "https://preetamr.com/preetam-profile.jpg",
+  email: "mailto:hello@preetam.dev",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Renton",
+    addressRegion: "WA",
+    addressCountry: "US",
+  },
+  sameAs: [
+    "https://linkedin.com/in/preetam-ramdhave",
+    "https://github.com/ramdhavepreetam",
+    "https://x.com/preetamramdhave",
+  ],
+  knowsAbout: [
+    "Agentic AI", "Forward Deployed Engineering", "AWS", "Claude API",
+    "RAG", "Production AI Systems", "Full-Stack Development",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -68,6 +94,12 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${instrumentSerif.variable} ${geistMono.variable} h-full antialiased selection:bg-cyan-electric/30 selection:text-cyan-electric`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-obsidian text-pearl selection:bg-cyan-electric/30">
         {children}
       </body>

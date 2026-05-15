@@ -1,6 +1,14 @@
 User-agent: *
 Allow: /
 
+# Search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# AI crawlers — explicitly allowed for AEO
 User-agent: GPTBot
 Allow: /
 
@@ -10,4 +18,16 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://preetam.dev/sitemap.xml
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+Sitemap: https://preetamr.com/sitemap.xml

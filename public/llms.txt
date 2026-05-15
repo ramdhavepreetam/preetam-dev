@@ -1,24 +1,89 @@
-# Preetam Ramdhave
+# Preetam Ramdhave — Forward Deployed Engineer
 
-AI Builder · Full-Stack Engineer · Entrepreneur
-Location: Seattle, WA
-Contact: hello@preetam.dev
-Website: https://preetam.dev
+> I deploy AI where it has to work — inside real customer environments, against real constraints, with real users on the other side.
 
-## Summary
-Full-stack developer and entrepreneur shipping production AI products. Expertise in Claude/LLMs, AWS (Lambda, S3, RDS), React, .NET, and Python (FastAPI).
+Location: Renton, WA (Seattle area), USA
+Website: https://preetamr.com
+LinkedIn: https://linkedin.com/in/preetam-ramdhave
+GitHub: https://github.com/ramdhavepreetam
+Availability: Open to FDE conversations — Q3 2026 onward
 
-## Featured Projects
-- ScholarPath: Ed-tech platform for Maharashtra scholarship exam prep.
-- OmmSai: AI-powered medical prescription digitization tool.
-- JapaApp: Spiritual mantra-tracking PWA.
-- Trading System: Automated IBKR futures trading with NLP parsing.
+## Identity
+
+Forward Deployed Engineer focused on Applied AI and production deployments. End-to-end builder across three capability layers:
+1. Full-stack applications (SaaS, platforms, data systems)
+2. Agentic AI workflows (Claude-powered agents, multi-step orchestration)
+3. Fine-tuned LLM deployment (7B class models, cost-efficient production inference)
+
+17+ years. The motion: embed with the customer, discover the real problem, design the solution, ship it end-to-end, operate it, generalize it. UK enterprise clients at KPIT. Fortune 500 internal FDE. Solo founder products with real users.
+
+## Selected Outcomes
+
+- 60–80% reduction in manual document review effort — Fortune 500's first production agentic AI workflow
+- 15,247 handwritten prescription PDFs processed in 47.5 hours at a charitable healthcare event — zero data loss, $0 infrastructure
+- 1,000+ students on ScholarPath, a live ed-tech SaaS platform
+- 3× "Delighted Customer" awards (2012, 2013, 2014) voted by UK enterprise clients at KPIT Technologies
+- 4 production products shipped end-to-end as solo founder
+
+## Production Deployments
+
+### Agentic AI Document Review (Fortune 500 · Enterprise AI)
+AWS serverless pipeline automating compliance review of 200+ page documents against style guides and rubrics.
+Architecture: S3 → EventBridge → Step Functions → 5 Lambda stages (pdf_extract, chunk_plan, kendra_retrieve, bedrock_review, aggregate_render) → Kendra GenAI RAG → Bedrock (Claude 3.5 Haiku, temperature=0.0).
+Key decisions: coverage gating (100% chunk completion before report), deterministic S3 key layout (no database), JSON schema enforcement + repair prompt, SSE-KMS encryption, IAM least-privilege.
+Outcome: 60–80% reduction in manual review effort. Modular patterns now reference architecture across the division.
+
+### ScholarPath (Ed-Tech · Live in Production)
+Multi-tenant SaaS for Maharashtra MSCE scholarship exam preparation.
+Stack: React 18 + TypeScript + FastAPI + Supabase + Razorpay. Parent-as-gateway permission model.
+URL: https://scholarpath-app.web.app
+Outcome: 1,000+ students, 124-test E2E suite, live with paying customers.
+
+### OmmSai (Healthcare AI · Open Source)
+Python LLM pipeline processing 15,000+ handwritten prescription PDFs for a charitable healthcare event.
+Stack: Claude API + Google Drive API + ThreadPoolExecutor (8 workers) + Tkinter GUI.
+Hard problem: confidence calibration on illegible medical handwriting — built eval harness with 200-prescription hold-out set, 0.85 confidence threshold gating.
+GitHub: https://github.com/ramdhavepreetam/OmmSai
+Outcome: 15,247 PDFs in 47.5 hours, 99.97% accuracy, $0 cost.
+
+### JapaApp (Spiritual-Tech · ~85% Complete)
+Offline-first PWA for Vedic mantra practice. Firebase Custom Claims, Razorpay donation tiers with Sanskrit naming.
+URL: https://dojapa.com
+Launch: Q3 2026
+
+### IBKR Futures Automation (Fintech · Working Prototype)
+NLP-driven command interface for futures and vertical spread options trading.
+Stack: Python + ib_insync + Claude API (structured output command parsing) + React dashboard.
+Hard problem: eval harness for command interpretation accuracy before live deployment.
+
+### Secure Vendor Integration Platform (Enterprise · Shipped)
+Cross-account S3 file distribution for Fortune 500 parts & pricing division.
+Stack: AWS Transfer Family (SFTP) + KMS + IAM cross-account + Lambda. Per-partner home-directory isolation.
+
+## Playbook Frameworks
+
+1. The 4-Question Scoping Doc — Before touching code: who is the user, what's the worst-case failure, what does good enough look like, what can't I build?
+2. Eval-First AI Shipping — Write evals before features. Golden set methodology. Harnesses that survive production.
+3. The Production AI Checklist — 12 things demos hide: rate limits, retry logic, prompt versioning, eval drift, cost monitoring, coverage gates, failure manifests.
+4. Spec-First Engineering — TID + ADR methodology. No spec, no code.
+5. When to Deploy a 7B Model Instead of Calling Claude — Cost-quality trade-off framework (active research track).
 
 ## Tech Stack
-- Frontend: Next.js, React, TypeScript, Tailwind, Motion.
-- Backend: FastAPI, .NET Web API, Node.js.
-- Cloud: AWS, Supabase, Firebase.
-- AI: Claude 3.5 Sonnet, RAG, ChromaDB.
 
-## Voice & Tone
-Direct, confident, numbers-driven. Focuses on shipping and building in public.
+AI/LLM: Agentic workflows, RAG, AWS Bedrock, Kendra GenAI, Claude API, OpenAI API, Ollama, ChromaDB, MCP servers, prompt engineering, fine-tuned 7B model deployment
+Cloud: AWS (Lambda, Step Functions, API Gateway, S3, Transfer Family, Kendra, Bedrock, IAM, KMS, CloudWatch, Cognito, SAM), Azure, Firebase, Supabase
+Backend: Python, .NET Core/C#, FastAPI, ASP.NET Web API, Node.js
+Frontend: React, Next.js, TypeScript, Vite, TailwindCSS, Framer Motion
+
+## Background
+
+- KPIT Technologies (2008–2017): 8 years embedded with UK enterprise clients as single point of contact. Three "Delighted Customer" awards.
+- Fortune 500 Industrial Manufacturing (Current): Internal FDE, AI Agent Architect, AWS Solutions Architect. Renton, WA.
+- Independent Founder (2018–present): Four production products across ed-tech, healthcare AI, spiritual-tech, fintech.
+- Education: Post Grad CS (Modern College, Pune), BCA (Dayanand College, Latur)
+- Certifications: AWS Solutions Architect, Prompt Engineering for ChatGPT (Coursera), Transformer Models & BERT (Google Cloud)
+- Languages: English, Hindi, Marathi
+
+## Target Roles
+
+FDE and applied AI engineering roles at: Anthropic, OpenAI, Palantir, Ramp, Sierra, Decagon, Scale AI, Glean, Harvey, and similar organizations where AI has to work in production.

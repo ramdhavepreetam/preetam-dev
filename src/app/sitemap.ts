@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { projects } from '@/lib/data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://preetam.dev';
+  const baseUrl = 'https://preetamr.com';
 
   const routes = [
     '',
