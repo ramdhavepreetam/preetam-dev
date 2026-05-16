@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://preetam-dev.vercel.app";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://preetamr.com";
 
 const inter = Inter({
   variable: "--font-inter",

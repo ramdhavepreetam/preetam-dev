@@ -3,7 +3,7 @@
 > I deploy AI where it has to work — inside real customer environments, against real constraints, with real users on the other side.
 
 Location: Renton, WA (Seattle area), USA
-Website: https://preetam-dev.vercel.app
+Website: https://preetamr.com
 LinkedIn: https://linkedin.com/in/preetam-ramdhave
 GitHub: https://github.com/ramdhavepreetam
 Availability: Open to FDE conversations — Q3 2026 onward
