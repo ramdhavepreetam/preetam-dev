@@ -7,21 +7,40 @@ import { MessageCircle, X, Send, Bot, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+const MAX_INPUT_CHARS = 800;
+const MAX_USER_MESSAGES = 5;
+
+const suggestedPrompts = [
+  "What kind of FDE work does Preetam do?",
+  "Show me his strongest AI deployment.",
+  "Is he available for consulting?",
+];
+
 export function ChatWidget() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [input, setInput] = React.useState("");
-  const { messages, sendMessage, status } = useChat();
+  const [clientError, setClientError] = React.useState("");
+  const { messages, sendMessage, status, error } = useChat();
   const isLoading = status === "submitted" || status === "streaming";
+  const userMessageCount = messages.filter((m) => m.role === "user").length;
+  const reachedSessionLimit = userMessageCount >= MAX_USER_MESSAGES;
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
-    setInput(e.target.value);
+    setClientError("");
+    setInput(e.target.value.slice(0, MAX_INPUT_CHARS));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim() || isLoading) return;
+    if (!input.trim() || isLoading || reachedSessionLimit) return;
     sendMessage({ text: input });
     setInput("");
+  };
+
+  const askSuggestedPrompt = (prompt: string) => {
+    if (isLoading || reachedSessionLimit) return;
+    setClientError("");
+    sendMessage({ text: prompt });
   };
 
   const scrollRef = React.useRef<HTMLDivElement>(null);
@@ -81,11 +100,24 @@ export function ChatWidget() {
               className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin"
             >
               {messages.length === 0 && (
-                <div className="flex flex-col items-center justify-center h-full text-center space-y-2 opacity-50">
+                <div className="flex h-full flex-col items-center justify-center space-y-4 text-center">
                   <Sparkles className="h-8 w-8 text-cyan-electric" />
-                  <p className="text-sm text-mist">
-                    Ask me anything about Preetam&apos;s work, tech stack, or background.
+                  <p className="max-w-[260px] text-sm text-mist">
+                    Ask about Preetam&apos;s production AI work, FDE fit, architecture, or availability.
                   </p>
+                  <div className="grid w-full gap-2">
+                    {suggestedPrompts.map((prompt) => (
+                      <button
+                        key={prompt}
+                        type="button"
+                        onClick={() => askSuggestedPrompt(prompt)}
+                        className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-left text-xs text-whisper transition-colors hover:border-cyan-electric/30 hover:text-pearl disabled:cursor-not-allowed disabled:opacity-50"
+                        disabled={isLoading || reachedSessionLimit}
+                      >
+                        {prompt}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
               {messages.map((m) => (
@@ -121,22 +153,46 @@ export function ChatWidget() {
                   </div>
                 </div>
               )}
+              {(clientError || error || reachedSessionLimit) && (
+                <div className="rounded-lg border border-cyan-electric/20 bg-cyan-electric/5 p-3 text-xs leading-relaxed text-mist">
+                  {clientError ||
+                    error?.message ||
+                    "This chat reached its short-session limit. For deeper questions, use the contact page."}
+                </div>
+              )}
             </div>
 
             {/* Input */}
             <form
               onSubmit={handleSubmit}
-              className="p-4 bg-midnight border-t border-white/5 flex items-center space-x-2"
+              className="space-y-2 border-t border-white/5 bg-midnight p-4"
             >
-              <input
-                value={input}
-                onChange={handleInputChange}
-                placeholder="Ask a question..."
-                className="flex-1 bg-obsidian border border-white/10 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-cyan-electric text-pearl"
-              />
-              <Button type="submit" size="icon" disabled={isLoading || !input.trim()}>
-                <Send className="h-4 w-4" />
-              </Button>
+              <div className="flex items-center space-x-2">
+                <input
+                  value={input}
+                  onChange={handleInputChange}
+                  placeholder={reachedSessionLimit ? "Session limit reached" : "Ask a portfolio question..."}
+                  className="flex-1 rounded-md border border-white/10 bg-obsidian px-3 py-2 text-sm text-pearl focus:outline-none focus:ring-1 focus:ring-cyan-electric disabled:cursor-not-allowed disabled:opacity-60"
+                  disabled={reachedSessionLimit}
+                  maxLength={MAX_INPUT_CHARS}
+                />
+                <Button
+                  type="submit"
+                  size="icon"
+                  disabled={isLoading || !input.trim() || reachedSessionLimit}
+                  onClick={() => {
+                    if (input.length > MAX_INPUT_CHARS) {
+                      setClientError(`Please keep questions under ${MAX_INPUT_CHARS} characters.`);
+                    }
+                  }}
+                >
+                  <Send className="h-4 w-4" />
+                </Button>
+              </div>
+              <div className="flex items-center justify-between text-[10px] text-whisper">
+                <span>Portfolio questions only</span>
+                <span>{input.length}/{MAX_INPUT_CHARS}</span>
+              </div>
             </form>
           </motion.div>
         )}
