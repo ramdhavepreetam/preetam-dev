@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Instrument_Serif, Geist_Mono, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://preetamr.com";
@@ -110,6 +111,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col bg-obsidian text-pearl selection:bg-cyan-electric/30">
         {children}
+        <Analytics />
       </body>
     </html>
   );
