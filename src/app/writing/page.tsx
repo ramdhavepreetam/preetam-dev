@@ -1,33 +1,8 @@
 import { Navbar } from "@/components/navigation/navbar";
 import { Footer } from "@/components/navigation/footer";
 import { ChatWidget } from "@/components/ai/chat-widget";
-
-const articles = [
-  {
-    title: "How I Built an AI Tool That Processed 15,000 Prescriptions in 48 Hours",
-    description: "A deep dive into the architecture and challenges of building OmmSai, an open-source tool for healthcare data automation.",
-    date: "May 12, 2026",
-    readTime: "8 min read",
-    slug: "ommsai-case-study",
-    tags: ["AI Engineering", "Healthcare", "Python"]
-  },
-  {
-    title: "The Builder's OS: My System for Shipping AI Side Projects",
-    description: "My personal workflow for balancing a full-time job while shipping high-impact AI products from my home office in Seattle.",
-    date: "May 5, 2026",
-    readTime: "12 min read",
-    slug: "builders-os",
-    tags: ["Productivity", "Building in Public"]
-  },
-  {
-    title: "FastAPI vs .NET Web API in 2026: A Production Comparison",
-    description: "A data-driven comparison of the two most popular backend frameworks for building modern AI applications.",
-    date: "April 28, 2026",
-    readTime: "15 min read",
-    slug: "fastapi-vs-dotnet",
-    tags: ["Full-Stack", "Architecture"]
-  }
-];
+import { articles } from "@/lib/data";
+import Link from "next/link";
 
 export default function WritingPage() {
   return (
@@ -39,7 +14,7 @@ export default function WritingPage() {
             Writing<span className="text-cyan-electric">.</span>
           </h1>
           <p className="text-xl text-mist leading-relaxed">
-            Essays on AI engineering, shipping products, and the entrepreneur's mindset. 
+            Essays on AI engineering, shipping products, and the entrepreneur&apos;s mindset.
             No corporate-speak, just building in public.
           </p>
         </header>
@@ -78,5 +53,3 @@ export default function WritingPage() {
     </div>
   );
 }
-
-import Link from "next/link";

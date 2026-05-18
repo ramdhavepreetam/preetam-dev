@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { projects } from '@/lib/data';
+import { articles, projects } from '@/lib/data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://preetamr.com';
@@ -28,5 +28,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...routes, ...projectRoutes];
+  const articleRoutes = articles.map((article) => ({
+    url: `${baseUrl}/writing/${article.slug}`,
+    lastModified: new Date().toISOString(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }));
+
+  return [...routes, ...projectRoutes, ...articleRoutes];
 }

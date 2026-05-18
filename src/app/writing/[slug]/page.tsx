@@ -1,21 +1,24 @@
+import { articles } from "@/lib/data";
 import { Navbar } from "@/components/navigation/navbar";
 import { Footer } from "@/components/navigation/footer";
 import { ChatWidget } from "@/components/ai/chat-widget";
-import { ArrowLeft, Share2 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Share2 } from "lucide-react";
 import { Twitter, Linkedin } from "@/components/icons/social-icons";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { notFound } from "next/navigation";
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
-  // Mock article data - in a real app, this would come from an MDX file
-  const article = {
-    title: "How I Built an AI Tool That Processed 15,000 Prescriptions in 48 Hours",
-    description: "A deep dive into the architecture and challenges of building OmmSai, an open-source tool for healthcare data automation.",
-    date: "May 12, 2026",
-    readTime: "8 min read",
-    author: "Preetam Ramdhave",
-    tags: ["AI Engineering", "Healthcare", "Python"]
-  };
+export async function generateStaticParams() {
+  return articles.map((article) => ({
+    slug: article.slug,
+  }));
+}
+
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = articles.find((item) => item.slug === slug);
+
+  if (!article) notFound();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -41,34 +44,39 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
           <p className="text-xl text-mist leading-relaxed italic border-l-2 border-cyan-electric pl-6">
             {article.description}
           </p>
+          {article.links && (
+            <div className="flex flex-wrap gap-3 mt-8">
+              {article.links.map((link) => (
+                <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" size="sm">
+                    {link.label} <ArrowUpRight className="ml-2 h-3 w-3" />
+                  </Button>
+                </a>
+              ))}
+            </div>
+          )}
         </header>
 
         <article className="prose prose-invert prose-pearl prose-lg max-w-none">
-          {/* Article content would be rendered here via MDX */}
-          <p>
-            When I first heard about the charity healthcare event, the challenge seemed insurmountable. 
-            Over 15,000 handwritten prescriptions needed to be digitized into structured JSON for pharmacy 
-            management in less than 48 hours.
-          </p>
-          <h2 className="text-3xl font-serif italic text-pearl mt-12 mb-6">The Architecture</h2>
-          <p>
-            I built OmmSai using a combination of Python, the Claude 3.5 Sonnet API, and a highly concurrent 
-            processing engine. The core of the system was a multi-threaded batch processor that could handle 
-            hundreds of requests per minute while maintaining strict accuracy checks.
-          </p>
-          <pre className="bg-slate p-6 rounded-xl border border-white/5 cyan-glow overflow-x-auto my-8">
-            <code className="text-sm font-mono text-code-green">
-{`async def process_prescription(image_bytes):
-    # Convert image to optimized base64
-    # Call Claude 3.5 Sonnet with vision
-    # Validate structured JSON response
-    # Save to Supabase`}
-            </code>
-          </pre>
-          <p>
-            The results were staggering. We achieved a 99% accuracy rate, significantly higher than human 
-            data entry, and completed the entire dataset with hours to spare.
-          </p>
+          {article.blocks.map((block, index) => {
+            if (block.kind === "heading") {
+              return (
+                <h2 key={index} className="text-3xl font-serif italic text-pearl mt-12 mb-6">
+                  {block.text}
+                </h2>
+              );
+            }
+
+            if (block.kind === "code") {
+              return (
+                <pre key={index} className="bg-slate p-6 rounded-xl border border-white/5 cyan-glow overflow-x-auto my-8">
+                  <code className="text-sm font-mono text-code-green">{block.code}</code>
+                </pre>
+              );
+            }
+
+            return <p key={index}>{block.text}</p>;
+          })}
         </article>
 
         {/* Article Footer */}
@@ -78,7 +86,7 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
                <span className="text-cyan-electric font-bold">PR</span>
             </div>
             <div>
-              <span className="block text-sm font-bold text-pearl">{article.author}</span>
+              <span className="block text-sm font-bold text-pearl">Preetam Ramdhave</span>
               <span className="text-xs text-whisper">AI Builder · Entrepreneur</span>
             </div>
           </div>
