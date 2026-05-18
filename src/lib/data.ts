@@ -36,41 +36,50 @@ export type CaseStudy = {
 
 export const articles = [
   {
-    title: "From 15,000 Handwritten Prescriptions to an Open-Source Python Package",
+    title: "Turning Handwritten Forms into Automation-Ready JSON",
     description:
-      "How OmmSai became Handwriting JSON, a schema-guided handwritten document extraction package for turning handwritten PDFs and images into structured JSON with vision LLMs.",
+      "How I turned a healthcare automation project into Handwriting JSON, an open-source Python package for automating handwritten forms, notes, and scanned paperwork.",
     date: "May 17, 2026",
     readTime: "9 min read",
     slug: "handwriting-json-launch",
-    tags: ["Document AI", "Open Source", "Python"],
+    tags: ["Open Source", "AI Engineering", "Python"],
     links: [
       { label: "GitHub", href: "https://github.com/ramdhavepreetam/handwriting-json" },
-      { label: "PyPI", href: "https://pypi.org/project/handwriting-json/0.1.0/" },
+      { label: "PyPI", href: "https://pypi.org/project/handwriting-json/0.1.1/" },
     ],
     blocks: [
       {
         kind: "paragraph",
         text:
-          "Handwriting JSON is a new open-source Python package for schema-guided handwritten document extraction. It converts handwritten PDFs and images into structured JSON using vision LLMs, with optional schema guidance when you already know the shape your application needs.",
+          "Every organization has at least one workflow that still starts on paper: a signup form, field inspection note, school permission slip, donation form, clinic intake form, KYC form, survey sheet, maintenance report, or old scanned record. The problem is not only reading the handwriting. The real problem is turning that handwriting into structured data that software can use.",
       },
       {
         kind: "paragraph",
         text:
-          "The origin story is OmmSai. That project was built for a charitable healthcare event that needed to process roughly 15,000 handwritten prescription files. The hard part was not simply reading handwriting; it was turning messy, varied, handwritten medical documents into structured data that downstream software could use.",
+          "I first ran into this through OmmSai, a healthcare automation project built around roughly 15,000 handwritten prescription files for a charitable healthcare event. That project is the origin story and proof point, not the product boundary. Prescriptions were one example of a much broader pattern: paper workflows that need to become automation-ready JSON.",
       },
       {
         kind: "heading",
-        text: "From One Healthcare Workflow to a Developer Package",
+        text: "The Broader Workflow Problem",
       },
       {
         kind: "paragraph",
         text:
-          "OmmSai was intentionally narrow: handwritten prescriptions, a tight event window, and an operator workflow for volunteers. Handwriting JSON generalizes the useful core into a developer-first package for handwritten document extraction, handwritten PDF to JSON workflows, document AI prototypes, intake forms, field reports, surveys, school paperwork, registration forms, and other handwritten records.",
+          "Handwriting JSON is an open-source Python package and CLI for automating handwritten document workflows. It converts forms, notes, and scanned paperwork into structured JSON using vision LLMs and optional schema guidance. The target use cases are intentionally broad: signup forms, field inspection notes, school permission slips, donation forms, clinic intake forms, KYC forms, surveys, maintenance reports, and scanned records.",
+      },
+      {
+        kind: "heading",
+        text: "Why OCR Alone Is Not Enough",
       },
       {
         kind: "paragraph",
         text:
-          "OCR tools usually ask, \"What text is visible?\" Handwriting JSON asks a different question: \"What structured data should this document become?\" That distinction matters when the output needs to feed an application, validation step, database row, or review queue.",
+          "OCR can return text, but automation usually needs fields. A CRM, spreadsheet import, compliance workflow, student database, ticketing system, or review queue does not just need a transcription. It needs predictable keys, values, arrays, booleans, and missing-field behavior that software can act on.",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Handwriting JSON asks a more useful question than \"what text is visible?\" It asks, \"what structured data should this document become?\" That is the difference between reading a scanned form and making the form usable in an automated workflow.",
       },
       {
         kind: "heading",
@@ -89,7 +98,16 @@ export const articles = [
         kind: "code",
         language: "python",
         code:
-          'from handwriting_json import extract\n\nresult = extract(\n    "registration_form.pdf",\n    model="anthropic/claude-sonnet-4-5",\n    schema={\n        "full_name": "",\n        "date": "",\n        "phone": "",\n        "items": []\n    },\n)\n\nprint(result.data)',
+          'from handwriting_json import extract\n\nresult = extract(\n    "handwritten_registration_form.jpg",\n    model="anthropic/claude-sonnet-4-5",\n    schema={\n        "full_name": "",\n        "phone": "",\n        "email": "",\n        "address": "",\n        "date": "",\n        "notes": "",\n        "signature_present": False,\n    },\n)\n\nprint(result.data)',
+      },
+      {
+        kind: "heading",
+        text: "Why Schema Guidance Matters",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Without a schema, a vision model can describe a document, but the output may not be stable enough for automation. With an example JSON object or JSON Schema, the model has a target contract. The workflow changes from \"read this image\" to \"extract this document into this shape.\"",
       },
       {
         kind: "heading",
@@ -99,7 +117,7 @@ export const articles = [
         kind: "code",
         language: "bash",
         code:
-          "handwriting-json --help\n\nhandwriting-json extract \\\n  --input form.pdf \\\n  --schema examples/form_schema.json \\\n  --output result.json \\\n  --model anthropic/claude-sonnet-4-5",
+          "handwriting-json --help\n\nhandwriting-json extract \\\n  --input handwritten_signup_form.jpg \\\n  --schema examples/signup_form_schema.json \\\n  --output result.json \\\n  --model anthropic/claude-sonnet-4-5",
       },
       {
         kind: "heading",
@@ -108,7 +126,7 @@ export const articles = [
       {
         kind: "paragraph",
         text:
-          "The package uses LiteLLM because handwritten document extraction depends heavily on vision LLM quality, cost, latency, and provider availability. LiteLLM gives the package a thin provider abstraction without forcing users into one model vendor. A developer can route extraction through Anthropic, OpenAI, or another supported vision model while the Handwriting JSON API stays focused on inputs, prompts, schema guidance, JSON parsing, and validation warnings.",
+          "Handwritten document automation depends heavily on vision LLM quality, cost, latency, and provider availability. LiteLLM gives Handwriting JSON a thin provider abstraction without forcing users into one model vendor. A developer can route extraction through Anthropic, OpenAI, or another supported vision model while the package stays focused on inputs, prompts, schema guidance, JSON parsing, and validation warnings.",
       },
       {
         kind: "heading",
@@ -117,7 +135,7 @@ export const articles = [
       {
         kind: "paragraph",
         text:
-          "LangChain and LangGraph were intentionally left out of v0.1 because the first release is not a multi-step agent workflow. It is a focused library: normalize a document input, build a schema-guided extraction prompt, call a vision LLM, parse JSON, and report validation warnings. Adding orchestration before the package needs retries, repair loops, human review routing, OCR fallback, or multi-model routing would make the public API heavier without improving the core handwritten PDF to JSON use case.",
+          "LangChain and LangGraph were intentionally deferred for v0.1 because the first release is not a multi-step agent workflow. It is a focused library: normalize a document input, build a schema-guided extraction prompt, call a vision LLM, parse JSON, and report validation warnings. Adding orchestration before the package needs retries, repair loops, human review routing, OCR fallback, or multi-model routing would make the public API heavier without improving the core handwritten forms-to-JSON use case.",
       },
       {
         kind: "heading",
@@ -126,12 +144,12 @@ export const articles = [
       {
         kind: "paragraph",
         text:
-          "Version 0.1 is a Python package and Typer CLI for local paths, URLs, base64 strings, bytes, and file-like inputs. It supports PDF, PNG, JPG/JPEG, and WebP detection, JSON Schema guidance, example JSON guidance, a generic extraction prompt, a prescription preset, LiteLLM-backed provider calls, JSON response parsing, and validation warnings.",
+          "Version 0.1.x is a Python package and Typer CLI for local paths, URLs, base64 strings, bytes, and file-like inputs. It supports PDF, PNG, JPG/JPEG, and WebP detection, JSON Schema guidance, example JSON guidance, generic extraction prompts, LiteLLM-backed provider calls, JSON response parsing, and validation warnings.",
       },
       {
         kind: "paragraph",
         text:
-          "Docker, a REST API, hosted SaaS, OCR fallback, and heavier orchestration are roadmap candidates, not current features. The first public release is deliberately small: schema-guided handwritten document extraction for developers who want structured JSON from handwritten PDFs and images using vision LLMs.",
+          "Docker, a REST API, hosted SaaS, OCR fallback, and heavier orchestration are roadmap candidates, not current features. The public package is deliberately small: handwritten forms, notes, and scanned paperwork in; automation-ready JSON out.",
       },
     ],
   },
@@ -371,30 +389,31 @@ export const projects = [
   {
     title: "Handwriting JSON",
     description:
-      "Open-source Python package and CLI for schema-guided handwritten document extraction. Converts handwritten PDFs and images into structured JSON using vision LLMs, optional JSON Schema or example JSON guidance, and LiteLLM provider routing. Extracted from the OmmSai healthcare pipeline and generalized for developers building document AI workflows. Available on PyPI at https://pypi.org/project/handwriting-json/0.1.0/.",
+      "Open-source Python package and CLI for automating handwritten document workflows. Converts forms, notes, and scanned paperwork into structured JSON using vision LLMs and optional schema guidance.",
     slug: "handwriting-json",
     image: "/projects/handwriting-json.jpg",
     tags: ["Python", "Document AI", "Vision LLMs", "LiteLLM", "Typer", "JSON Schema"],
-    metrics: "v0.1.0 on PyPI",
+    metrics: "Published on PyPI",
     featured: true,
-    domain: "Open Source · Document AI",
+    domain: "Open Source AI",
+    url: "https://pypi.org/project/handwriting-json/",
     github: "https://github.com/ramdhavepreetam/handwriting-json",
-    pypi: "https://pypi.org/project/handwriting-json/0.1.0/",
+    pypi: "https://pypi.org/project/handwriting-json/0.1.1/",
     caseStudy: {
       headline:
-        "Schema-guided handwritten document extraction for developers — from handwritten PDFs and images to application-ready JSON.",
-      customer: "Open-source developers building handwritten document extraction workflows",
-      timeline: "May 2026 · v0.1.0",
+        "Turn handwritten forms, notes, and scanned paperwork into automation-ready JSON with a Python API and CLI.",
+      customer: "Open-source developers automating handwritten document workflows",
+      timeline: "May 2026 · v0.1.1",
       status: "Published · GitHub and PyPI",
       capabilityTags: ["Open Source", "Document AI", "Vision LLMs", "Python"],
       customerContext:
-        "Many teams still receive operational data as handwritten documents: clinic forms, registration sheets, surveys, field notes, school paperwork, intake forms, inspection reports, and scanned records. OCR can return text, but applications usually need structured JSON with predictable keys, validation behavior, and a shape that matches downstream software.",
+        "Many teams still collect operational data on paper: signup forms, field inspection notes, school permission slips, donation forms, clinic intake forms, KYC forms, surveys, maintenance reports, and old scanned records. OCR can return text, but automation usually needs structured JSON with predictable keys, validation behavior, and a shape that matches downstream software.",
       problem:
-        "The original OmmSai project solved one urgent healthcare use case: process roughly 15,000 handwritten prescription files for a charitable event. Handwriting JSON takes the reusable part of that work and makes it public: a developer package for schema-guided handwritten document extraction, handwritten PDF to JSON conversion, and vision LLM-powered document AI workflows.",
+        "The original OmmSai project solved one urgent healthcare use case involving roughly 15,000 handwritten prescription files. Handwriting JSON takes the reusable idea and generalizes it: forms, notes, and scanned paperwork should become automation-ready JSON for CRMs, spreadsheets, compliance workflows, school systems, clinic intake pipelines, and review queues.",
       constraints: [
         "Keep the public API small enough for developers to understand in one sitting",
-        "Support handwritten PDFs and images without forcing one model provider",
-        "Accept schema guidance through JSON Schema or example JSON so output can match application needs",
+        "Support handwritten PDFs and images without making the product medical-only",
+        "Accept schema guidance through JSON Schema or example JSON so output can match automation needs",
         "Do not ship a hosted service, Docker wrapper, REST API, or OCR fallback before the package core is stable",
         "Make the CLI useful for experiments while keeping the Python API clean for production pipelines",
       ],
@@ -409,12 +428,12 @@ export const projects = [
           what: "Orchestration",
           chosen: "Simple package pipeline: input normalization → prompt builder → provider call → JSON parser → optional validation",
           rejected: "LangChain and LangGraph in v0.1",
-          why: "The v0.1 release is not a multi-step agent workflow. Adding LangChain or LangGraph before retries, repair loops, human review routing, OCR fallback, or multi-model routing are needed would make the API heavier without improving the core schema-guided handwritten document extraction use case.",
+          why: "The v0.1 release is not a multi-step agent workflow. Adding LangChain or LangGraph before retries, repair loops, human review routing, OCR fallback, or multi-model routing are needed would make the API heavier without improving the core handwritten forms-to-JSON use case.",
         },
         {
           what: "Output guidance",
           chosen: "Optional JSON Schema or example JSON",
-          rejected: "Free-form text extraction",
+          rejected: "Free-form text-only extraction",
           why: "The goal is not just to read handwriting. The goal is to turn handwritten documents into structured JSON that software can reliably use. Schema guidance makes the expected shape explicit.",
         },
         {
@@ -425,20 +444,20 @@ export const projects = [
         },
       ],
       hardProblem:
-        "The hard product boundary was deciding what not to include. The OmmSai origin story naturally suggests a larger platform: batch dashboards, review queues, OCR fallback, Docker, REST endpoints, and orchestration graphs. Shipping all of that in v0.1 would bury the actual reusable primitive under framework decisions.",
+        "The hard product boundary was not letting the OmmSai prescription origin story define the whole product. A useful launch needs to make the broader automation pattern obvious: handwritten signup forms, inspection notes, permission slips, donation sheets, KYC forms, surveys, maintenance reports, clinic intake forms, and scanned records all have the same core problem.",
       fix:
-        "Cut v0.1 down to the core extraction path: normalize local paths, URLs, base64 strings, bytes, and file-like objects; detect PDF, PNG, JPG/JPEG, and WebP inputs; build generic or preset prompts; call a vision LLM through LiteLLM; parse JSON; and surface validation warnings. The package is intentionally a foundation, not a platform.",
+        "Positioned Handwriting JSON around handwritten workflow automation: normalize local paths, URLs, base64 strings, bytes, and file-like objects; detect PDF, PNG, JPG/JPEG, and WebP inputs; build schema-guided prompts; call a vision LLM through LiteLLM; parse JSON; and surface validation warnings. The package is intentionally a foundation, not a platform.",
       productionReality:
-        "The healthcare lessons still shaped the package: handwritten document extraction needs schema discipline, explicit uncertainty, and outputs designed for downstream systems. The public package keeps OmmSai as the origin story while positioning Handwriting JSON as the reusable open-source tool.",
+        "The healthcare lessons still shaped the package: handwritten document automation needs schema discipline, explicit uncertainty, and outputs designed for downstream systems. The public package keeps OmmSai as proof that the problem is real while positioning Handwriting JSON as the reusable open-source tool for many paper-heavy workflows.",
       outcomeMetrics: [
-        { value: "0.1.0", label: "PyPI release", sub: "pip install handwriting-json" },
-        { value: "15K", label: "Origin dataset", sub: "OmmSai prescription files" },
+        { value: "0.1.1", label: "PyPI release", sub: "pip install handwriting-json" },
+        { value: "15K", label: "Origin proof", sub: "OmmSai prescription files" },
         { value: "4", label: "Input formats", sub: "PDF, PNG, JPG, WebP" },
         { value: "2", label: "Interfaces", sub: "Python API and CLI" },
       ],
       lessons: [
         "A real one-off deployment can produce a reusable open-source package when the core primitive is separated from the event-specific workflow",
-        "Schema-guided handwritten document extraction is a better product boundary than generic OCR",
+        "Handwritten workflow automation is a better product boundary than prescription extraction or generic OCR",
         "LiteLLM is enough abstraction for v0.1 because provider routing matters, but agent orchestration does not yet",
         "LangChain and LangGraph should enter only when the workflow grows into retries, repair loops, routing, or human review",
         "Roadmap features like Docker, REST, and OCR fallback are useful only after the package contract is stable",
