@@ -88,7 +88,7 @@ export function Hero() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-6 text-lg md:text-xl text-mist leading-relaxed max-w-2xl"
           >
-            Production deployments inside real customer environments. Claude API, AWS, full-stack. Based in Seattle.
+            Architecting resilient, agentic AI systems and cloud-native platforms for Fortune 500s and high-growth scaleups. 18 years of enterprise experience. Based in Seattle.
           </motion.p>
 
           {/* Stat chips */}

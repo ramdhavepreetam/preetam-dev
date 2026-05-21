@@ -14,7 +14,7 @@ export const metadata = {
 
 const experience = [
   {
-    role: "Sr. Software Engineer · AI Agent Architect · AWS Solutions Architect · Internal FDE",
+    role: "Principal AI Architect · Enterprise Systems Lead",
     company: "Fortune 500 Industrial Manufacturing Enterprise",
     location: "Renton, WA",
     period: "Current",
@@ -152,29 +152,23 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* The 15,000 Prescription Proof Moment */}
+        {/* The Enterprise Proof Moment */}
         <section className="py-16 mx-auto max-w-4xl px-6">
           <div className="glass rounded-2xl p-10 border border-cyan-electric/10">
             <p className="text-xs font-mono text-cyan-electric/70 tracking-[0.2em] uppercase mb-4">Proof moment</p>
-            <h2 className="text-2xl font-serif italic text-pearl mb-4">15,247 prescriptions. 48 hours. Zero data loss.</h2>
+            <h2 className="text-2xl font-serif italic text-pearl mb-4">60–80% effort reduction. First-of-kind enterprise agentic AI.</h2>
             <p className="text-mist leading-relaxed text-sm mb-4">
-              A healthcare charity needed 15,000+ handwritten prescription PDFs converted to structured JSON
-              for a medical event. The deadline was the event itself — 48 hours away. Manual transcription was
-              mathematically impossible.
+              A Fortune 500 industrial manufacturer needed to automate compliance and policy checks across hundreds of high-stakes, 200+ page customer documents. Manual review was slow, inconsistent, and highly prone to audit failure. Leadership knew AI was the answer, but the constraints were massive: no external data transmission, deterministic output, full auditability to specific pages and standards, and no black-box failures.
             </p>
             <p className="text-mist leading-relaxed text-sm mb-6">
-              I built a Python pipeline using Claude Sonnet, Google Drive API, and ThreadPoolExecutor with 8
-              parallel workers. The hard part wasn't the throughput — it was the eval problem. Claude was
-              confident on prescriptions it shouldn't have been, hallucinating dosages on illegible scans.
-              I built an eval harness: a hold-out set of 200 known prescriptions, automated diff against
-              ground truth, confidence-threshold gating. Anything below 0.85 routed to human review.
+              I architected and deployed the organization's first production agentic AI workflow. The solution used an event-driven pipeline—API Gateway to Step Functions orchestration, parallel Lambda tools for chunk planning and policy validation, and RAG grounding on an AWS Kendra GenAI Index. By decomposing the architecture into modular, testable stages with strict JSON schema validation and coverage gating, we delivered a system that guaranteed 100% review coverage while eliminating the silent partial failures typical of LLMs.
             </p>
             <div className="flex flex-wrap gap-6">
               {[
-                { n: "15,247", u: "PDFs processed" },
-                { n: "47.5 hrs", u: "Inside the window" },
-                { n: "99.97%", u: "Extraction accuracy" },
-                { n: "$0", u: "Infrastructure cost" },
+                { n: "60-80%", u: "Effort reduction" },
+                { n: "200+", u: "Pages per job" },
+                { n: "100%", u: "Coverage guaranteed" },
+                { n: "0", u: "External transmissions" },
               ].map((s) => (
                 <div key={s.u}>
                   <div className="text-2xl font-serif italic text-cyan-electric">{s.n}</div>
@@ -183,7 +177,7 @@ export default function AboutPage() {
               ))}
             </div>
             <div className="mt-6">
-              <Link href="/deployments/ommsai" className="text-sm text-cyan-electric hover:underline flex items-center gap-1 w-fit">
+              <Link href="/deployments/agentic-doc-review" className="text-sm text-cyan-electric hover:underline flex items-center gap-1 w-fit">
                 Full case study <ArrowUpRight className="h-3 w-3" />
               </Link>
             </div>
@@ -240,8 +234,8 @@ export default function AboutPage() {
               {[
                 ["Embed", "Sit with the customer — external client, internal department, or end user. Watch how they actually work."],
                 ["Discover", "Find the real problem. It is almost never the stated problem."],
-                ["Design", "Architect the solution that fits the customer's reality — their data, their systems, their team, their security posture."],
-                ["Ship", "Build it end-to-end. Backend, frontend, infra, security, observability. No handoffs."],
+                ["Design", "Architect solutions that fit the enterprise reality — aligning stakeholders, writing architecture decision records (ADRs), and establishing secure, compliant reference architectures."],
+                ["Ship", "Guide engineering teams and build systems end-to-end. Navigate complex constraints to ensure delivery across backend, frontend, infra, and security."],
                 ["Operate & Iterate", "Stay with it after launch. Watch the customer use it. Iterate on what the field teaches."],
                 ["Generalize", "Turn one customer's win into a reusable pattern the rest of the org can leverage."],
               ].map(([title, desc], i) => (
@@ -340,14 +334,12 @@ export default function AboutPage() {
           <section className="mb-20">
             <h2 className="text-3xl font-serif italic text-pearl mb-6">What I'm looking for next</h2>
             <p className="text-mist leading-relaxed text-sm mb-6">
-              FDE and applied AI engineering roles at AI labs, enterprise AI deployments, and AI-native
-              scaleups — Anthropic, OpenAI, Palantir, Ramp, Sierra, and similar. Organizations where the
-              question isn't "should we use AI" but "how do we make it actually work for our customers."
+              Technical leadership and enterprise architecture roles at top-tier tech firms, AI labs, and high-growth scaleups — organizations building complex, resilient systems where the question isn't "should we use AI" but "how do we architect it to actually work at scale."
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {[
-                { title: "Best fit", items: "AI labs · Enterprise AI deployments · Agentic AI scaleups" },
-                { title: "Open to", items: "Consulting · Fractional FDE · Technical advisor" },
+                { title: "Best fit", items: "Technical leadership · Enterprise architecture · Core AI platforms" },
+                { title: "Open to", items: "Principal roles · Staff engineering · Technical advisor" },
                 { title: "Not exploring", items: "Full-time at non-AI companies" },
               ].map((col) => (
                 <div key={col.title} className="glass rounded-xl p-5 border border-white/5">
