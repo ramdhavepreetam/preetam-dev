@@ -1,7 +1,7 @@
 import { anthropic } from '@ai-sdk/anthropic';
 import { streamText, convertToModelMessages } from 'ai';
 import type { SystemModelMessage, UIMessage } from 'ai';
-import { Redis } from '@upstash/redis';
+import { kv } from '@vercel/kv';
 import { CHAT_LIMITS, portfolioSystemPrompt } from '@/lib/chat-context';
 
 export const maxDuration = 30;
@@ -21,14 +21,8 @@ const cachedSystemPrompt: SystemModelMessage = {
   },
 };
 
-// Upstash Redis — null-safe so missing env vars never break the chat
-const redis =
-  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
-    ? new Redis({
-        url: process.env.UPSTASH_REDIS_REST_URL,
-        token: process.env.UPSTASH_REDIS_REST_TOKEN,
-      })
-    : null;
+// KV is available when Vercel injects KV_REST_API_URL + KV_REST_API_TOKEN
+const kvEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
 
 type RateBucket = {
   windowStart: number;
@@ -123,10 +117,9 @@ function logChatEvent(event: {
   city: string;
   user_agent: string;
 }) {
-  if (!redis) return;
-  redis
-    .lpush('chat_logs', JSON.stringify(event))
-    .then(() => redis.ltrim('chat_logs', 0, 999)) // keep latest 1000
+  if (!kvEnabled) return;
+  kv.lpush('chat_logs', JSON.stringify(event))
+    .then(() => kv.ltrim('chat_logs', 0, 999)) // keep latest 1000
     .catch(() => {}); // logging must never surface to the user
 }
 
