@@ -127,7 +127,7 @@ function logChatEvent(event: {
   redis
     .lpush('chat_logs', JSON.stringify(event))
     .then(() => redis.ltrim('chat_logs', 0, 999))
-    .catch(() => {});
+    .catch((e) => console.error('[chat-log] Redis write failed:', e?.message));
 }
 
 export async function POST(req: Request) {
