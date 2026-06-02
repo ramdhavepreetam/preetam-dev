@@ -474,7 +474,7 @@ export const projects = [
     description:
       "An MCP server that gives any AI agent zero-config time-series forecasting. Plugs Google's TimesFM 2.5 foundation model — plus a pure-NumPy statistical baseline — into Claude, Cursor, or any MCP client via one install line. The agent calls a forecast tool, gets point predictions, confidence bands, and a trend/seasonality summary, then writes the recommendation itself. Includes a backtest tool reporting MAE/sMAPE on held-out data so forecasts are validated before they're trusted.",
     slug: "timesfm-mcp",
-    image: "/projects/timesfm-mcp.png",
+    image: "/projects/timesfm-mcp.svg",
     tags: ["Python", "MCP", "FastMCP", "NumPy", "Pydantic", "TimesFM 2.5", "Time-Series"],
     metrics: "Published on PyPI · v0.1.6",
     featured: true,

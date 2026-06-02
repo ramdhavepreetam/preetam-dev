@@ -7,7 +7,7 @@ const projectVisuals: Record<string, string> = {
   "agentic-doc-review": "/projects/agentic-architecture.png",
   scholarpath: "/scholarpath-screenshot.png",
   japaapp: "/japaapp-screenshot.png",
-  "timesfm-mcp": "/projects/timesfm-mcp.png",
+  "timesfm-mcp": "/projects/timesfm-mcp.svg",
 };
 
 function ProjectCard({ project }: { project: (typeof projects)[number] }) {
@@ -16,16 +16,25 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
       <div className="group relative glass rounded-2xl overflow-hidden border border-white/5 hover:border-cyan-electric/30 transition-all duration-300 h-full">
         <div className="aspect-video bg-midnight relative overflow-hidden">
           {projectVisuals[project.slug] ? (
-            <>
-              <Image
+            projectVisuals[project.slug].endsWith(".svg") ? (
+              /* SVG diagrams: contain + no dark overlay — already dark-themed */
+              <img
                 src={projectVisuals[project.slug]}
-                alt={`${project.title} screenshot`}
-                fill
-                className="object-cover object-top opacity-85 transition-transform duration-700 group-hover:scale-[1.03]"
-                sizes="(max-width: 768px) 100vw, 50vw"
+                alt={`${project.title} diagram`}
+                className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-[1.03]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/10 to-transparent" />
-            </>
+            ) : (
+              <>
+                <Image
+                  src={projectVisuals[project.slug]}
+                  alt={`${project.title} screenshot`}
+                  fill
+                  className="object-cover object-top opacity-85 transition-transform duration-700 group-hover:scale-[1.03]"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-obsidian/10 to-transparent" />
+              </>
+            )
           ) : (
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(232,169,95,0.1),transparent)]" />
           )}
