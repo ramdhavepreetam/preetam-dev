@@ -7,7 +7,7 @@ const projectVisuals: Record<string, string> = {
   "agentic-doc-review": "/projects/agentic-architecture.png",
   scholarpath: "/scholarpath-screenshot.png",
   japaapp: "/japaapp-screenshot.png",
-  "timesfm-mcp": "/projects/timesfm-mcp.jpg",
+  "timesfm-mcp": "/projects/timesfm-mcp.png",
 };
 
 function ProjectCard({ project }: { project: (typeof projects)[number] }) {
