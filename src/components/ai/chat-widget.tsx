@@ -4,6 +4,7 @@ import * as React from "react";
 import { useChat } from "@ai-sdk/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
+import { DefaultChatTransport } from "ai";
 import { cn } from "@/lib/utils";
 
 const MAX_INPUT_CHARS = 800;
@@ -19,7 +20,14 @@ export function ChatWidget() {
   const [isOpen, setIsOpen] = React.useState(false);
   const [input, setInput] = React.useState("");
   const [clientError, setClientError] = React.useState("");
-  const { messages, sendMessage, status, error } = useChat();
+  // Stable for the full page visit — new UUID on each page load
+  const sessionId = React.useRef(crypto.randomUUID()).current;
+  const { messages, sendMessage, status, error } = useChat({
+    transport: new DefaultChatTransport({
+      api: "/api/chat",
+      body: { sessionId },
+    }),
+  });
   const isLoading = status === "submitted" || status === "streaming";
   const userMessageCount = messages.filter((m) => m.role === "user").length;
   const reachedSessionLimit = userMessageCount >= MAX_USER_MESSAGES;

@@ -1,6 +1,7 @@
 import { anthropic } from '@ai-sdk/anthropic';
 import { streamText, convertToModelMessages } from 'ai';
 import type { SystemModelMessage, UIMessage } from 'ai';
+import { Redis } from '@upstash/redis';
 import { CHAT_LIMITS, portfolioSystemPrompt } from '@/lib/chat-context';
 
 export const maxDuration = 30;
@@ -19,6 +20,15 @@ const cachedSystemPrompt: SystemModelMessage = {
     },
   },
 };
+
+// Upstash Redis — null-safe so missing env vars never break the chat
+const redis =
+  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+    ? new Redis({
+        url: process.env.UPSTASH_REDIS_REST_URL,
+        token: process.env.UPSTASH_REDIS_REST_TOKEN,
+      })
+    : null;
 
 type RateBucket = {
   windowStart: number;
@@ -71,7 +81,6 @@ function checkRateLimit(clientId: string) {
 
 function isChatMessage(value: unknown): value is ChatMessage {
   if (!value || typeof value !== 'object') return false;
-
   const message = value as Partial<ChatMessage>;
   return (
     (message.role === 'user' || message.role === 'assistant') &&
@@ -86,7 +95,7 @@ function getMessageText(message: ChatMessage) {
 }
 
 function latestUserText(messages: ChatMessage[]) {
-  const latestUserMessage = [...messages].reverse().find((message) => message.role === 'user');
+  const latestUserMessage = [...messages].reverse().find((m) => m.role === 'user');
   return latestUserMessage ? getMessageText(latestUserMessage).trim() : '';
 }
 
@@ -100,8 +109,25 @@ function isBlockedTopic(text: string) {
     /debug (my|this) code/,
     /stock pick|crypto|medical advice|legal advice/,
   ];
+  return blockedPatterns.some((p) => p.test(normalized));
+}
 
-  return blockedPatterns.some((pattern) => pattern.test(normalized));
+// Fire-and-forget — never awaited so it never slows down the stream
+function logChatEvent(event: {
+  session_id: string;
+  timestamp: string;
+  message_no: number;
+  user_text: string;
+  ip: string;
+  country: string;
+  city: string;
+  user_agent: string;
+}) {
+  if (!redis) return;
+  redis
+    .lpush('chat_logs', JSON.stringify(event))
+    .then(() => redis.ltrim('chat_logs', 0, 999)) // keep latest 1000
+    .catch(() => {}); // logging must never surface to the user
 }
 
 export async function POST(req: Request) {
@@ -114,7 +140,7 @@ export async function POST(req: Request) {
     );
   }
 
-  let body: { messages?: ChatMessage[] };
+  let body: { messages?: unknown[]; sessionId?: string };
   try {
     body = await req.json();
   } catch {
@@ -122,7 +148,7 @@ export async function POST(req: Request) {
   }
 
   const messages = Array.isArray(body.messages) ? body.messages.filter(isChatMessage) : [];
-  const userMessages = messages.filter((message) => message.role === 'user');
+  const userMessages = messages.filter((m) => m.role === 'user');
   const userText = latestUserText(messages);
 
   if (!userText) {
@@ -149,6 +175,18 @@ export async function POST(req: Request) {
       { status: 400 }
     );
   }
+
+  // Log — fire and forget, does not block the stream
+  logChatEvent({
+    session_id: typeof body.sessionId === 'string' ? body.sessionId : 'unknown',
+    timestamp: new Date().toISOString(),
+    message_no: userMessages.length,
+    user_text: userText,
+    ip: clientId,
+    country: req.headers.get('x-vercel-ip-country') ?? 'unknown',
+    city: req.headers.get('x-vercel-ip-city') ?? 'unknown',
+    user_agent: req.headers.get('user-agent') ?? 'unknown',
+  });
 
   const result = streamText({
     model: anthropic('claude-haiku-4-5-20251001'),
