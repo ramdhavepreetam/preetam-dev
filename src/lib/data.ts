@@ -226,6 +226,7 @@ export const articles = [
 export const projects = [
   {
     title: "Agentic AI Document Review",
+    category: "deployment" as const,
     description:
       "First-of-its-kind production agentic AI workflow for a Fortune 500 enterprise. Embedded with the document review team, identified that reviewers were burning significant hours per week on repetitive policy checks. Designed and shipped an event-driven pipeline: API Gateway → Step Functions → parallel Lambda tools (PDF parsing, chunk planning, classification, policy validation) → RAG grounding on AWS Kendra GenAI Index. Every output traceable via correlation IDs for compliance audits.",
     slug: "agentic-doc-review",
@@ -311,6 +312,7 @@ export const projects = [
   },
   {
     title: "OmmSai — Healthcare AI Pipeline",
+    category: "open-source" as const,
     description:
       "Open-source Python pipeline I donated to a charitable healthcare event that needed to digitize 15,000+ handwritten prescription PDFs in 48 hours. Built with Claude Sonnet (Anthropic API), Google Drive API, ThreadPoolExecutor concurrency, and a Tkinter operator GUI so non-engineer volunteers could run it on any Windows laptop. Released publicly so other charities and clinics can reuse the pipeline.",
     slug: "ommsai",
@@ -388,6 +390,7 @@ export const projects = [
   },
   {
     title: "Handwriting JSON",
+    category: "open-source" as const,
     description:
       "Open-source Python package and CLI for automating handwritten document workflows. Converts forms, notes, and scanned paperwork into structured JSON using vision LLMs and optional schema guidance.",
     slug: "handwriting-json",
@@ -466,7 +469,92 @@ export const projects = [
     } satisfies CaseStudy,
   },
   {
+    title: "timesfm-mcp",
+    category: "open-source" as const,
+    description:
+      "An MCP server that gives any AI agent zero-config time-series forecasting. Plugs Google's TimesFM 2.5 foundation model — plus a pure-NumPy statistical baseline — into Claude, Cursor, or any MCP client via one install line. The agent calls a forecast tool, gets point predictions, confidence bands, and a trend/seasonality summary, then writes the recommendation itself. Includes a backtest tool reporting MAE/sMAPE on held-out data so forecasts are validated before they're trusted.",
+    slug: "timesfm-mcp",
+    image: "/projects/timesfm-mcp.jpg",
+    tags: ["Python", "MCP", "FastMCP", "NumPy", "Pydantic", "TimesFM 2.5", "Time-Series"],
+    metrics: "Published on PyPI · v0.1.6",
+    featured: true,
+    domain: "Open Source AI",
+    url: "https://pypi.org/project/timesfm-mcp/",
+    github: "https://github.com/ramdhavepreetam/timesfm-mcp",
+    pypi: "https://pypi.org/project/timesfm-mcp/",
+    caseStudy: {
+      headline:
+        "Zero-config time-series forecasting for any AI agent — MCP server wrapping Google's TimesFM 2.5 plus a pure-NumPy statistical baseline.",
+      customer: "Open-source developers integrating time-series forecasting into AI agent workflows",
+      timeline: "2026 · v0.1.6",
+      status: "Published on PyPI · v0.1.6",
+      capabilityTags: ["Open Source", "MCP", "Time-Series", "Python"],
+      customerContext:
+        "AI agents built with Claude, Cursor, or any MCP client can generate text, write code, and analyze data — but they can't produce reliable numeric time-series forecasts. A foundation model might describe a trend narratively, but it can't produce calibrated point predictions with confidence bands, or run backtests against held-out data. Any workflow that needs a forecast recommendation — inventory planning, capacity management, energy demand, sales projections — requires the agent to call out to a real forecasting model and receive structured numeric results it can reason about.",
+      problem:
+        "LLMs are inherently unable to forecast numeric time-series reliably. They can describe trends, but can't produce calibrated point predictions or confidence intervals. The design challenge was not building a forecasting model — Google's TimesFM 2.5 and a pure-NumPy statistical baseline handle that — but bridging the gap between an AI agent and a forecasting backend. The agent needs to call a tool, receive structured output (point predictions, confidence bands, trend/seasonality summary), and then write the recommendation itself. The backtest tool adds a second requirement: validate the forecast on held-out data before the agent trusts it.",
+      constraints: [
+        "Zero-config baseline: pip install timesfm-mcp must work on any machine without CUDA, GPUs, or special hardware — the NumPy statistical baseline runs everywhere",
+        "TimesFM 2.5 is not yet on PyPI (upstream issue google-research/timesfm#432) — must be installed from vendored source, making it optional rather than the default",
+        "MCP protocol compliance — tool definitions, parameter schemas, and response shapes must be valid for Claude, Cursor, and any MCP client without modification",
+        "Structured output for agent reasoning — point predictions, confidence bands, and a trend/seasonality summary in one response so the agent has enough context to write the recommendation itself",
+        "backtest tool must report MAE/sMAPE on held-out data so forecasts are validated before they're trusted in production workflows",
+      ],
+      architectureDecisions: [
+        {
+          what: "Two-backend design",
+          chosen:
+            "Pure-NumPy statistical baseline (always available) + Google TimesFM 2.5 (optional, installed from vendored source while google-research/timesfm#432 is open)",
+          rejected: "TimesFM 2.5 only / require GPU for all users",
+          why: "TimesFM 2.5 is not yet on PyPI. Requiring it would block most users. The statistical baseline runs on any machine without special dependencies and covers the majority of production forecasting use cases. The MCP server detects which backend is available at startup and routes accordingly.",
+        },
+        {
+          what: "MCP server framework",
+          chosen:
+            "FastMCP — minimal boilerplate, automatic tool schema generation from Python type hints and Pydantic models",
+          rejected: "Raw MCP protocol implementation",
+          why: "FastMCP generates compliant MCP tool definitions from Python function signatures. This keeps the forecasting logic cleanly separated from the protocol layer and makes tool parameters self-documenting for any MCP client.",
+        },
+        {
+          what: "Output design",
+          chosen:
+            "Structured response per tool call: point predictions array, confidence bands (lower/upper), trend direction, seasonality flag, plain-English summary — all normalized through a shared Pydantic model",
+          rejected: "Return raw numbers only / split context across multiple tool calls",
+          why: "The agent writes the recommendation. To do that well, it needs not just numbers but context: is this trend up or down? Is there seasonality? What's the confidence range? One response with all of this means the agent can reason in a single context window without chaining tool calls. Normalizing both backends through a shared Pydantic model ensures the response shape is identical regardless of which backend runs.",
+        },
+        {
+          what: "Validation layer",
+          chosen:
+            "backtest tool: split the input series into training and held-out windows, forecast the held-out period, report MAE and sMAPE",
+          rejected: "Trust forecast quality without validation",
+          why: "A forecast that hasn't been validated against held-out data is not trustworthy in a production agent workflow. The backtest tool closes the loop: the agent can call forecast, then backtest, and only recommend the forecast if the error metrics are within acceptable bounds.",
+        },
+      ],
+      hardProblem:
+        "TimesFM 2.5 distribution gap. The upstream PyPI package doesn't exist yet (google-research/timesfm#432), which means users who want the foundation model backend can't install it with pip install timesfm-mcp alone. The naive solution — just require TimesFM — would break the package for anyone without a GPU or the source install. The other extreme — omit TimesFM entirely — would make the package less useful for the use cases where a foundation model's accuracy matters most.",
+      fix:
+        "Dual-backend architecture with graceful degradation. The MCP server attempts to import TimesFM at startup inside a try/except. If it's available, it becomes the default backend for the forecast tool. If it's not, the NumPy statistical baseline takes over transparently. The startup log tells the user which backend is active. Users who want TimesFM 2.5 get a one-time install command from the vendored source — the README links directly to the upstream issue so they know the PyPI gap is tracked and temporary.",
+      productionReality:
+        "The agent UX loop — call forecast, get numbers, write recommendation — only works if the structured output is stable enough for the agent to act on. Early versions returned slightly different key names across backends (the TimesFM backend used 'forecast' where the NumPy backend used 'predictions'). Fixed by normalizing all output through a shared Pydantic response model before returning from the MCP tool. Both backends now return an identical response shape regardless of which one runs.",
+      outcomeMetrics: [
+        { value: "v0.1.6", label: "PyPI release", sub: "pip install timesfm-mcp" },
+        { value: "2", label: "MCP tools", sub: "forecast + backtest" },
+        { value: "2", label: "Backends", sub: "NumPy baseline + TimesFM 2.5" },
+        { value: "MAE/sMAPE", label: "Backtest metrics", sub: "Validated before trusted" },
+      ],
+      lessons: [
+        "Graceful backend degradation is not optional when an upstream dependency isn't on PyPI — design the dual-backend from day one, not as an afterthought",
+        "The agent writes the recommendation; the tool provides the numbers — structured output with context (trend, seasonality, confidence) is more valuable than raw predictions alone",
+        "Normalize response shapes across backends through a shared Pydantic model — any key-name divergence between backends will break the agent's downstream reasoning",
+        "Backtest before trust: any forecasting tool used in a production agent workflow needs a validation layer the agent can call before committing to a recommendation",
+        "TimesFM 2.5 from vendored source tracks upstream issue google-research/timesfm#432 — when that lands, the install path simplifies to one command",
+      ],
+      relatedSlugs: ["handwriting-json", "ommsai"],
+    } satisfies CaseStudy,
+  },
+  {
     title: "ScholarPath",
+    category: "deployment" as const,
     description:
       "Ed-tech platform for Maharashtra MSCE scholarship exam prep, built from a gap discovered by embedding with parents and exam coordinators in the scholarship ecosystem. Parent-as-gateway model with child profiles, tiered access, and 124-test end-to-end testing plan. Generically extensible exam-category configuration enables rapid expansion to new exam verticals. Supabase MCP integration with Claude Code for AI-assisted delivery.",
     slug: "scholarpath",
@@ -537,6 +625,7 @@ export const projects = [
   },
   {
     title: "JapaApp",
+    category: "deployment" as const,
     description:
       "Spiritual mantra-tracking PWA built for practitioners of Vedic disciplines. Originally architected on AWS (Lambda, RDS Proxy, Cognito JWT, SAM) before owning the platform-migration decision to Firebase. Implemented global admin via Firebase Custom Claims and Razorpay subscription/donation flow with tiered pricing.",
     slug: "japaapp",
@@ -606,6 +695,7 @@ export const projects = [
   },
   {
     title: "Secure Vendor Integration Platform",
+    category: "deployment" as const,
     description:
       "Cross-account S3-based file distribution platform for a Fortune 500 parts & pricing business unit. Identified that ad-hoc file delivery created security risk and slow partner onboarding. Architected with AWS Transfer Family (SFTP), TLS-only bucket policies, KMS encryption, and home-directory isolation per partner. Authored reusable vendor onboarding documentation now used as the team's standard pattern.",
     slug: "vendor-platform",
@@ -674,6 +764,7 @@ export const projects = [
   },
   {
     title: "IBKR Futures Automation",
+    category: "deployment" as const,
     description:
       "Automated IBKR futures trading system with vertical spread options strategies, NLP command parsing for natural-language order entry, and a React dashboard for monitoring. Built for production with Python ib_insync integration and real-time position management.",
     slug: "trading-system",
