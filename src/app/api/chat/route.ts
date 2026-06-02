@@ -1,7 +1,7 @@
 import { anthropic } from '@ai-sdk/anthropic';
 import { streamText, convertToModelMessages } from 'ai';
 import type { SystemModelMessage, UIMessage } from 'ai';
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
 import { CHAT_LIMITS, portfolioSystemPrompt } from '@/lib/chat-context';
 
 export const maxDuration = 30;
@@ -21,8 +21,14 @@ const cachedSystemPrompt: SystemModelMessage = {
   },
 };
 
-// KV is available when Vercel injects KV_REST_API_URL + KV_REST_API_TOKEN
-const kvEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+// Redis client — null when env vars aren't set (local dev without logging)
+const redis =
+  process.env.UPSTASH_REDIS_REST_URL && process.env.UPSTASH_REDIS_REST_TOKEN
+    ? new Redis({
+        url: process.env.UPSTASH_REDIS_REST_URL,
+        token: process.env.UPSTASH_REDIS_REST_TOKEN,
+      })
+    : null;
 
 type RateBucket = {
   windowStart: number;
@@ -106,7 +112,7 @@ function isBlockedTopic(text: string) {
   return blockedPatterns.some((p) => p.test(normalized));
 }
 
-// Fire-and-forget — never awaited so it never slows down the stream
+// Fire-and-forget — never slows down the stream
 function logChatEvent(event: {
   session_id: string;
   timestamp: string;
@@ -117,10 +123,11 @@ function logChatEvent(event: {
   city: string;
   user_agent: string;
 }) {
-  if (!kvEnabled) return;
-  kv.lpush('chat_logs', JSON.stringify(event))
-    .then(() => kv.ltrim('chat_logs', 0, 999)) // keep latest 1000
-    .catch(() => {}); // logging must never surface to the user
+  if (!redis) return;
+  redis
+    .lpush('chat_logs', JSON.stringify(event))
+    .then(() => redis.ltrim('chat_logs', 0, 999))
+    .catch(() => {});
 }
 
 export async function POST(req: Request) {
@@ -169,7 +176,6 @@ export async function POST(req: Request) {
     );
   }
 
-  // Log — fire and forget, does not block the stream
   logChatEvent({
     session_id: typeof body.sessionId === 'string' ? body.sessionId : 'unknown',
     timestamp: new Date().toISOString(),
