@@ -36,6 +36,108 @@ export type CaseStudy = {
 
 export const articles = [
   {
+    title: "Your AI Agent Can't See the Future",
+    description:
+      "A short launch note for timesfm-mcp: an open-source MCP server that gives AI agents real time-series forecasting, confidence bands, and backtesting.",
+    date: "May 30, 2026",
+    readTime: "4 min read",
+    slug: "ai-agent-can-see-the-future",
+    tags: ["Open Source", "MCP", "Forecasting", "AI Agents"],
+    links: [
+      { label: "GitHub", href: "https://github.com/ramdhavepreetam/timesfm-mcp" },
+      { label: "PyPI", href: "https://pypi.org/project/timesfm-mcp/" },
+    ],
+    blocks: [
+      {
+        kind: "paragraph",
+        text:
+          "Your AI agent can't see the future. So I built the one tool that lets it forecast with real numbers: point predictions, confidence bands, and backtests that an agent can call from any MCP client.",
+      },
+      {
+        kind: "heading",
+        text:
+          "The Problem",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Ask an agent to forecast next quarter's MRR and it may answer confidently with a rounded guess: trending up, maybe around $35K. The problem is not the language. The problem is that there is no forecasting model, no confidence band, and no way to check whether the number should be trusted.",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "LLMs reason brilliantly. Left alone, they guess at numbers, confidently and often wrong. Forecasting needs a tool boundary.",
+      },
+      {
+        kind: "heading",
+        text:
+          "What You Get",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "timesfm-mcp gives an agent three zero-config tools. forecast returns point predictions, 90% confidence bands, and a trend and seasonality read. backtest holds out real data and reports MAE and sMAPE, giving proof before the forecast is trusted. list_backends shows which engine is live: the pure NumPy baseline or Google TimesFM 2.5.",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "The server returns the data. The agent writes the recommendation itself.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Setup",
+      },
+      {
+        kind: "code",
+        language: "bash",
+        code:
+          "$ uvx timesfm-mcp\n\n// add to your agent config\n{\n  \"mcpServers\": {\n    \"forecast\": {\n      \"command\": \"uvx\",\n      \"args\": [\"timesfm-mcp\"]\n    }\n  }\n}",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "The pure NumPy baseline runs instantly: no GPU, no model download, no special hardware. TimesFM 2.5 is available as an optional upgrade.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Real Example",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Give the agent 24 months of SaaS MRR and ask it to forecast the next 6 months with a 90% band. The agent calls forecast(values=[...], horizon=6, quantiles=[0.9]) and receives a structured read: rising 3.3% month over month, seasonality detected, low volatility, and tight confidence bands.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Backtested Before You Trust It",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "The example backtest held out data the model had never seen and returned a 2.3% average error. Month +1 actual was $24,100 against a $24,495 prediction. Month +3 actual was $24,800 against $25,790. Month +6 actual was $26,800 against $26,685. The result: MAE of $588 and sMAPE of 2.3%.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Try It",
+      },
+      {
+        kind: "code",
+        language: "bash",
+        code:
+          "$ uvx timesfm-mcp",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Point forecasts, confidence bands, and built-in backtests are available through one MCP server. The baseline always works; TimesFM 2.5 is optional.",
+      },
+    ],
+  },
+  {
     title: "Turning Handwritten Forms into Automation-Ready JSON",
     description:
       "How I turned a healthcare automation project into Handwriting JSON, an open-source Python package for automating handwritten forms, notes, and scanned paperwork.",
@@ -206,6 +308,122 @@ export const articles = [
     ],
   },
   {
+    title: "Building Big Apps with AI Coding Tools - Without Making a Mess",
+    description:
+      "How I use AI coding tools for scaffolding, tests, docs, and boilerplate while keeping architecture, module boundaries, and security human-led.",
+    date: "January 19, 2026",
+    readTime: "8 min read",
+    slug: "building-big-apps-ai-tools",
+    tags: ["AI Engineering", "Architecture", "Developer Workflow"],
+    blocks: [
+      {
+        kind: "paragraph",
+        text:
+          "I use AI coding tools for scaffolding, tests, docs, and boring boilerplate. Architecture and module boundaries stay human-led. The way to keep a growing app clean is to break it into small vertical slices, add guardrails, and ship faster without letting the codebase drift.",
+      },
+      {
+        kind: "heading",
+        text:
+          "The Real Problem",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Large applications slow down as complexity grows. Code reviews take longer as dependencies multiply. Once the codebase exceeds the model context window, AI becomes unreliable unless the system is organized around clear boundaries.",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "I worked on a similar application and learned how to keep a mid-to-large system clean as it scales.",
+      },
+      {
+        kind: "heading",
+        text:
+          "The Core Approach",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Break the application into small, focused modules such as Auth, Payments, Notifications, and Search. Give each module a clear contract through OpenAPI, AsyncAPI, or typed interfaces.",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Each module needs explicit boundaries: what belongs inside it, how it communicates with other modules, who owns the data, how consistency works, which cross-cutting guardrails apply, how testing is handled, how security testing is handled, how delivery works, and where AI should not be used.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Where AI Helps",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "AI is useful for scaffolding controllers, services, repositories, DTOs, validation pipelines, logging, error handling, configuration, dependency injection, authorization setup, unit tests, contract tests, test data, basic security tests, READMEs, API examples, module guides, renaming, restructuring, and cleanup.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Where AI Hurts",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "AI should not own architecture decisions, complex business logic, security-critical components, or anything involving sensitive code. It is an assistant, not the architect.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Pros",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "The upside is speed, consistency, cleaner naming, better source-control hygiene with structured prompts, faster documentation, and less time wasted on syntax issues.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Cons",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "The risks are quality drift, contract drift, shallow tests, privacy and licensing concerns, and architecture erosion. Code can look right while being unsafe. Modules can misalign if contracts are not enforced. AI often defaults to happy-path tests.",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Without reviews, expertise, contract tests, and security checks, you will hit a wall.",
+      },
+      {
+        kind: "heading",
+        text:
+          "My Workflow",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Start with strong context and knowledge files: a clean system prompt, templates, and cleanup routines. Write one-page module ADRs for Users, Auth, Payments, Notifications, and Search. Use a contracts-first approach with OpenAPI and AsyncAPI.",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Then scaffold with AI one module at a time. Add guardrails through coding standards, formatting, security scans, and contract tests. Ship vertical slices: API, UI, and tests per module. Document continuously with READMEs, API examples, and ADRs.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Final Thought",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "AI accelerates productivity. Architecture protects the product. Use both intentionally to build fast and build clean.",
+      },
+    ],
+  },
+  {
     title: "FastAPI vs .NET Web API in 2026: A Production Comparison",
     description:
       "A data-driven comparison of the two most popular backend frameworks for building modern AI applications.",
@@ -218,6 +436,97 @@ export const articles = [
         kind: "paragraph",
         text:
           "FastAPI and .NET Web API are both production-grade choices. The right answer depends on team context, deployment environment, observability needs, and how much AI-specific Python code sits near the API boundary.",
+      },
+    ],
+  },
+  {
+    title: "Agentic AI - Built for Production",
+    description:
+      "Agentic AI is easy until you build it for production with security, auditability, deterministic outputs, and operational failure handling.",
+    date: "April 3, 2026",
+    readTime: "7 min read",
+    slug: "agentic-ai-production",
+    tags: ["Agentic AI", "RAG", "Security", "Cloud Architecture"],
+    blocks: [
+      {
+        kind: "paragraph",
+        text:
+          "Agentic AI is easy until you build it for production with security, auditability, and deterministic outputs.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Problem Context",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Enterprises rely on long-form documents for compliance, quality checks, and operational decisions. Manual review is slow, inconsistent, and hard to audit. The real challenge is automation without sacrificing control, traceability, or security.",
+      },
+      {
+        kind: "heading",
+        text:
+          "What I Built",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "I designed and implemented a production-grade agentic document review workflow with architecture rigor from day one: event-driven ingestion through an API or event gateway, deterministic orchestration, parallel chunk processing, coverage gating, retrieval-augmented grounding, and durable object storage for every artifact.",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "The system included tools for parsing, chunk planning, classification, structured extraction, and policy validation. LLM reasoning was constrained to strict schemas and deterministic settings. Outputs were produced as structured results, summaries, and machine-readable decision logs.",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Every artifact was persisted for replay, audit, and operations. This was not a demo agent. It was built for failure handling, traceability, and scale.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Security and Governance",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Security was designed in, not bolted on: least-privilege IAM with scoped permissions per component, encryption in transit and at rest across data paths, centralized secrets management, clear network boundaries, and controlled external egress.",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "The workflow included end-to-end audit trails with correlation IDs, data minimization before model invocation, sensitive-data filtering and redaction before LLM calls, prompt-injection defenses, strict output validation, optional human-in-the-loop gates for higher-risk actions, and policy-aligned controls for audits and compliance reviews.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Impact",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "The system reduced manual review effort by roughly 60-80%, improved consistency and traceability across reviews, and produced cleaner audit evidence with fewer rework loops.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Key Lessons",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Agents need reliability patterns: retries, idempotency, and explicit failure manifests. Retrieval quality and citation discipline matter more than clever prompts. Prompts and tool calls require regression tests. Production agent workflows should be designed for auditability and operations, not just model accuracy.",
+      },
+      {
+        kind: "heading",
+        text:
+          "Question for the Community",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "What security patterns are you using to productionize agent workflows?",
       },
     ],
   },

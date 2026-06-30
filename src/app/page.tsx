@@ -4,7 +4,7 @@ import { Newsletter } from "@/components/home/newsletter";
 import { Navbar } from "@/components/navigation/navbar";
 import { Footer } from "@/components/navigation/footer";
 import { ChatWidget } from "@/components/ai/chat-widget";
-import { outcomes, howIWork } from "@/lib/data";
+import { articles, outcomes, howIWork } from "@/lib/data";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
@@ -78,27 +78,16 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <ArticleCard
-              title="Agentic AI — Built for Production"
-              date="April 2026"
-              readTime="10 min read"
-              tag="AI Engineering"
-              slug="agentic-ai-production"
-            />
-            <ArticleCard
-              title="Building Big Apps with AI Coding Tools — Without Making a Mess"
-              date="January 2026"
-              readTime="12 min read"
-              tag="Building in Public"
-              slug="building-big-apps-ai-tools"
-            />
-            <ArticleCard
-              title="How I Built an AI Tool That Processed 15,000 Prescriptions in 48 Hours"
-              date="May 2026"
-              readTime="8 min read"
-              tag="AI Engineering"
-              slug="ommsai-case-study"
-            />
+            {articles.slice(0, 3).map((article) => (
+              <ArticleCard
+                key={article.slug}
+                title={article.title}
+                date={article.date}
+                readTime={article.readTime}
+                tag={article.tags[0] ?? "Writing"}
+                slug={article.slug}
+              />
+            ))}
           </div>
         </section>
 
