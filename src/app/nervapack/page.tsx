@@ -1,4 +1,5 @@
 import { ChatWidget } from "@/components/ai/chat-widget";
+import { InfographicGallery } from "@/components/nervapack/infographic-gallery";
 import { Github } from "@/components/icons/social-icons";
 import { Footer } from "@/components/navigation/footer";
 import { Navbar } from "@/components/navigation/navbar";
@@ -160,10 +161,10 @@ export default function NervaPackPage() {
 
         <section className="border-b border-white/5 bg-slate/20 py-8">
           <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-6 md:grid-cols-4">
-            <Metric value="90%" label="Token reduction target" />
-            <Metric value="Local" label="Default privacy mode" />
-            <Metric value="10" label="CLI command family" />
-            <Metric value="MCP" label="Agent integration" />
+            <Metric value="91.2%" label="Average Token Reduction" />
+            <Metric value="96%" label="SWE-bench Lite Recall" />
+            <Metric value="0 KB" label="Cloud Data (100% Local)" />
+            <Metric value="20" label="MCP Tools (Dual Servers)" />
           </div>
         </section>
 
@@ -232,6 +233,21 @@ nervapack visualize --enhanced --communities`}</code>
           </div>
         </section>
 
+        <section className="mx-auto max-w-7xl px-6 py-20">
+          <div className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <div>
+              <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-cyan-electric/70">
+                Infographics
+              </p>
+              <h2 className="font-serif text-4xl italic text-pearl">See how it fits together.</h2>
+            </div>
+            <p className="max-w-xl text-sm leading-relaxed text-mist">
+              A visual walkthrough of the pipeline, system model, benchmarks, and who NervaPack is
+              built for. Click any panel to view it full size.
+            </p>
+          </div>
+          <InfographicGallery />
+        </section>
         <section className="mx-auto max-w-5xl px-6 py-20">
           <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-cyan-electric/70">
             Architecture decisions

@@ -36,6 +36,74 @@ export type CaseStudy = {
 
 export const articles = [
   {
+    title: "Introducing NervaPack: Privacy-First Code Intelligence & Bi-Temporal Memory for AI Agents",
+    description:
+      "Announcing the open-source release of NervaPack: a 100% offline knowledge graph and bi-temporal memory engine that cuts LLM token usage by 91.2% while achieving 96% recall on SWE-bench Lite.",
+    date: "August 4, 2026",
+    readTime: "6 min read",
+    slug: "introducing-nervapack",
+    tags: ["Open Source", "NervaPack", "MCP", "Knowledge Graph", "AI Memory", "Python"],
+    links: [
+      { label: "Documentation", href: "https://nervapack.readthedocs.io/en/latest/" },
+      { label: "GitHub", href: "https://github.com/ramdhavepreetam/NervaPack" },
+      { label: "PyPI", href: "https://pypi.org/project/nervapack/" },
+    ],
+    blocks: [
+      {
+        kind: "paragraph",
+        text:
+          "Today I am excited to showcase NervaPack — an open-source, privacy-first knowledge graph and bi-temporal memory system built for AI coding agents like Claude Code, Cursor, and Windsurf.",
+      },
+      {
+        kind: "heading",
+        text: "The Problem with Standard Code RAG",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "As software repositories grow, developers and AI agents face a common dilemma: pasting full file dumps into prompts consumes 50,000+ tokens, driving up API costs ($700+/dev/year) while diluting context with irrelevant code. Meanwhile, naive text-chunk RAG breaks language structure — splitting functions across boundary lines and losing track of callers, imports, and doc explanations.",
+      },
+      {
+        kind: "heading",
+        text: "How NervaPack Works",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "NervaPack takes a developer-native approach. Instead of treating code as arbitrary text chunks, it parses your repository using Tree-sitter AST, building a structural knowledge graph with explicit CALLS, IMPORTS, EXPLAINS, and TOUCHES edges. When queried, K-hop BFS traversal retrieves only the precise 5–15 node neighborhood needed to answer the prompt.",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Alongside the code graph, NervaPack introduces a Bi-Temporal Agent Memory engine (backed by SQLite FTS5 and ONNX embeddings). Decisions, facts, and procedures track valid_from, valid_until, and recorded_at timestamps, ensuring agents remember past trade-offs while seamlessly adopting updated architectural guidance.",
+      },
+      {
+        kind: "heading",
+        text: "Key Benchmarks & Features",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "• 91.2% Token Reduction: Averages 2,459 tokens vs 52,037 tokens for naive RAG (4.5x fewer tokens than Aider).\n• 96% Recall: Benchmark tested on SWE-bench Lite.\n• 100% Offline & Privacy-First: 0 KB cloud data. Everything runs locally on your machine.\n• Sub-200 Token Recall: Loads 30 days of project decision history in ~170 tokens.\n• Dual MCP Server Suite: 20 tools spanning code graph queries and bi-temporal memory management.",
+      },
+      {
+        kind: "heading",
+        text: "Get Started",
+      },
+      {
+        kind: "code",
+        language: "bash",
+        code:
+          "$ pip install nervapack\n$ cd your-project/\n$ nervapack ingest .\n$ nervapack query \"How does authentication work?\"\n$ nervapack visualize --enhanced --communities",
+      },
+      {
+        kind: "paragraph",
+        text:
+          "Full installation guides, MCP client configuration, command references, and architectural deep-dives are available on the official Read the Docs site.",
+      },
+    ],
+  },
+  {
     title: "Your AI Agent Can't See the Future",
     description:
       "A short launch note for timesfm-mcp: an open-source MCP server that gives AI agents real time-series forecasting, confidence bands, and backtesting.",
@@ -533,6 +601,88 @@ export const articles = [
 ] satisfies Article[];
 
 export const projects = [
+  {
+    title: "NervaPack",
+    category: "open-source" as const,
+    description:
+      "Privacy-first, 100% offline knowledge graph & bi-temporal memory engine for AI coding agents. Uses Tree-sitter AST parsing, K-hop BFS graph traversal, and SQLite FTS5 bi-temporal facts storage to cut token consumption by 91.2% while achieving 96% recall on SWE-bench Lite. Features a dual MCP server suite (20 tools across code graph and memory) native for Claude Code, Cursor, and Windsurf.",
+    slug: "nervapack",
+    image: "/nervapack-at-a-glance.png",
+    tags: ["Python", "Knowledge Graph", "Tree-sitter AST", "Bi-Temporal Memory", "MCP", "SQLite FTS5", "ChromaDB"],
+    metrics: "91.2% token reduction · 96% recall",
+    featured: true,
+    domain: "Open Source AI · Developer Tooling",
+    url: "https://nervapack.readthedocs.io/en/latest/",
+    github: "https://github.com/ramdhavepreetam/NervaPack",
+    pypi: "https://pypi.org/project/nervapack/",
+    caseStudy: {
+      headline:
+        "91.2% average token reduction and 96% recall on SWE-bench Lite — a 100% local, AST-aware knowledge graph and bi-temporal memory engine for AI coding agents.",
+      customer: "Developers, AI/ML Engineers, Tech Leads, Engineering Managers, and Security-Conscious Enterprises",
+      timeline: "2026 · Active Open Source",
+      status: "Published on PyPI & Read the Docs",
+      capabilityTags: ["Open Source", "Knowledge Graph", "MCP", "AI Memory", "Tree-sitter"],
+      customerContext:
+        "As codebases grow, pasting full repository dumps or relying on naive text-chunk RAG floods LLM context windows with 50,000+ tokens of noise, causing high API costs ($700+/dev/year) and lost accuracy. Developers and security-conscious teams need a local-first system that retains structural understanding of code entities and persists architectural decisions across sessions without sending code to cloud services.",
+      problem:
+        "Naive RAG splits files into arbitrary text windows, losing critical software structure (which class calls what, which function imports what module, which docs explain which feature). Furthermore, AI agents lack persistent project memory — forgetting past design decisions and architectural trade-offs between prompt sessions. NervaPack solves both by pairing AST-driven structural graphs with bi-temporal project memory.",
+      constraints: [
+        "100% local, offline operation: 0 KB cloud data transmission — all AST parsing, vector search (ChromaDB ONNX), and SQLite FTS5 memory stay on dev machines",
+        "Deterministic structural precision: Tree-sitter AST parsing creates explicit CALLS, IMPORTS, EXPLAINS, and TOUCHES graph edges across Python, TS/JS, Go, Rust, C++, and Java",
+        "Bi-temporal memory integrity: facts, decisions, and procedures track valid_from, valid_until, and recorded_at timestamps so superseded decisions are preserved for auditability",
+        "Sub-200 token memory recall: loads 30 days of project decision history in ~170 tokens",
+        "Dual MCP server protocol compliance: 20 MCP tools exposed via nervapack-mcp (code graph) and nervapack-memory-mcp (bi-temporal memory) for Claude Code, Cursor, and Windsurf",
+      ],
+      architectureDecisions: [
+        {
+          what: "Code retrieval model",
+          chosen: "K-hop BFS graph traversal over Tree-sitter AST entities",
+          rejected: "Naive semantic chunk RAG / full-pack text dumps (Repomix/Aider)",
+          why: "Code questions depend on relationships (callers, callees, imports, explanations). K-hop traversal pulls only 5–15 structurally relevant nodes (2,459 tokens avg vs 52,037 tokens naive RAG), delivering 91.2% token savings with 96% recall on SWE-bench Lite.",
+        },
+        {
+          what: "Persistent agent memory",
+          chosen: "Bi-temporal memory model backed by SQLite FTS5 and ONNX vector embeddings",
+          rejected: "Single flat key-value store / ephemeral conversation buffer",
+          why: "Software decisions evolve. Bi-temporal attributes (valid_from, valid_until, recorded_at) allow agents to update current policy while keeping historical context intact, enabling line-level TOUCHES links between code changes and original design rationale.",
+        },
+        {
+          what: "Agent integration interface",
+          chosen: "Dual MCP Server Suite (nervapack-mcp & nervapack-memory-mcp) with 20 total tools",
+          rejected: "Custom IDE extension per editor",
+          why: "Model Context Protocol (MCP) provides zero-friction native compatibility with Claude Code, Cursor, Windsurf, and VS Code through a single .mcp.json configuration file.",
+        },
+        {
+          what: "Operational developer loop",
+          chosen: "Fast CLI with 2–5s incremental git-diff sync and HTML graph visualization",
+          rejected: "Full re-indexing on every code edit",
+          why: "Developers demand fast feedback. Git-diff sync inspects modified files and updates affected graph slices in 2–5 seconds without locking the codebase.",
+        },
+      ],
+      hardProblem:
+        "Balancing context precision against retrieval latency without cloud GPU dependencies. Naive graph databases require complex setup, while pure vector embeddings hallucinate code connections. Connecting line-level code entities directly to project decision facts (TOUCHES edges) required a lightweight, deterministic bridge between tree-sitter AST offsets and SQLite FTS5 records.",
+      fix:
+        "Created an integrated 4-module engine: (1) Tree-sitter parser generates AST nodes and hard edges; (2) SQLite FTS5 + local ONNX embedding index stores bi-temporal memory; (3) Line-level TOUCHES edges bridge memory directly to code entities; (4) K-hop BFS retriever isolates exact 5–15 node subgraphs for prompt injection. Verified on SWE-bench Lite with 96% recall and 4.5x fewer tokens than Aider.",
+      productionReality:
+        "Large repositories contain thousands of doc-to-code links and decision records. Full re-indexing choked dev workflows. The incremental git-diff sync engine solved this by computing diff patches and updating only modified node neighborhoods in 2–5 seconds, keeping the graph live during active coding.",
+      outcomeMetrics: [
+        { value: "91.2%", label: "Average token reduction", sub: "2,459 tokens vs 52,037 naive RAG" },
+        { value: "96%", label: "SWE-bench Lite recall", sub: "Higher accuracy with far less noise" },
+        { value: "4.5x", label: "Fewer tokens than Aider", sub: "Peak savings up to 97.4%" },
+        { value: "$724", label: "Saved / Dev / Year", sub: "API cost reduction (Claude 3.5 Sonnet)" },
+        { value: "0 KB", label: "Cloud data", sub: "100% local intelligence" },
+        { value: "20", label: "MCP tools", sub: "Dual MCP server suite" },
+      ],
+      lessons: [
+        "Code RAG must be AST-aware — text chunks destroy call hierarchies and import graphs",
+        "Bi-temporal tracking prevents agent context pollution when architectural decisions change over time",
+        "Sub-200 token recall makes persistent memory practical for every prompt session",
+        "Dual MCP server partitioning (Code Graph vs Memory) keeps tool definitions clean for AI clients",
+        "Published documentation on Read the Docs provides developers instant onboarding and API transparency",
+      ],
+      relatedSlugs: ["timesfm-mcp", "agentic-doc-review"],
+    } satisfies CaseStudy,
+  },
   {
     title: "Agentic AI Document Review",
     category: "deployment" as const,

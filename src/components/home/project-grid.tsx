@@ -4,6 +4,7 @@ import { projects } from "@/lib/data";
 import { ArrowUpRight } from "lucide-react";
 
 const projectVisuals: Record<string, string> = {
+  nervapack: "/nervapack-at-a-glance.png",
   "agentic-doc-review": "/projects/agentic-architecture.png",
   scholarpath: "/scholarpath-screenshot.png",
   japaapp: "/japaapp-screenshot.png",
@@ -11,8 +12,9 @@ const projectVisuals: Record<string, string> = {
 };
 
 function ProjectCard({ project }: { project: (typeof projects)[number] }) {
+  const targetHref = project.slug === "nervapack" ? "/nervapack" : `/deployments/${project.slug}`;
   return (
-    <Link href={`/deployments/${project.slug}`}>
+    <Link href={targetHref}>
       <div className="group relative glass rounded-2xl overflow-hidden border border-white/5 hover:border-cyan-electric/30 transition-all duration-300 h-full">
         <div className="aspect-video bg-midnight relative overflow-hidden">
           {projectVisuals[project.slug] ? (

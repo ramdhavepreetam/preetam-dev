@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     '',
     '/about',
+    '/nervapack',
     '/deployments',
     '/writing',
     '/playbook',
