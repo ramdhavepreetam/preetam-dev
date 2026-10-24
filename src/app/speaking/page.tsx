@@ -11,13 +11,6 @@ export default function SpeakingPage() {
       date: "June 2026 (Upcoming)",
       location: "Seattle, WA",
       description: "A deep dive into tool-calling patterns and error handling for LLM agents."
-    },
-    {
-      title: "Scaling Ed-Tech with Serverless Architecture",
-      event: "AWS Community Day",
-      date: "March 2026",
-      location: "Bellevue, WA",
-      description: "How we used AWS Lambda and Supabase to scale ScholarPath to thousands of students."
     }
   ];
 

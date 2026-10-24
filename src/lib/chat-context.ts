@@ -76,7 +76,7 @@ BACKGROUND:
 - 18+ years across enterprise software, solution architecture, cloud platforms, backend systems, integrations, and production support.
 - KPIT Technologies: embedded with UK enterprise clients, single point of contact, three "Delighted Customer" awards.
 - Fortune 500 industrial manufacturing: Senior Software Engineer, AI Agent Architect, AWS Solutions Architect, internal FDE motion.
-- Independent founder/builder across ed-tech, healthcare AI, spiritual-tech, fintech, and enterprise integration systems.
+- Independent founder/builder across healthcare AI, spiritual-tech, fintech, and enterprise integration systems.
 - Location: Renton, WA / Seattle area.
 - Languages: English, Hindi, Marathi.
 

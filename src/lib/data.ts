@@ -1012,77 +1012,6 @@ export const projects = [
     } satisfies CaseStudy,
   },
   {
-    title: "ScholarPath",
-    category: "deployment" as const,
-    description:
-      "Ed-tech platform for Maharashtra MSCE scholarship exam prep, built from a gap discovered by embedding with parents and exam coordinators in the scholarship ecosystem. Parent-as-gateway model with child profiles, tiered access, and 124-test end-to-end testing plan. Generically extensible exam-category configuration enables rapid expansion to new exam verticals. Supabase MCP integration with Claude Code for AI-assisted delivery.",
-    slug: "scholarpath",
-    image: "/scholarpath-screenshot.png",
-    tags: ["React", "TypeScript", "FastAPI", "Supabase", "Razorpay", "MCP"],
-    metrics: "Live in production",
-    featured: true,
-    domain: "Ed-Tech",
-    url: "https://scholarpath-app.web.app/",
-    caseStudy: {
-      headline: "Multi-tenant SaaS for India's scholarship exam market — live with paying customers.",
-      customer: "Maharashtra MSCE scholarship exam market — parents, students, exam coordinators",
-      timeline: "2024–Present",
-      status: "Live in production",
-      capabilityTags: ["Full-Stack", "SaaS", "Production"],
-      customerContext:
-        "The Maharashtra MSCE scholarship exam is a high-stakes test for students in classes 5 and 8. Parents in this market are deeply invested in their child's preparation but have no structured digital tool — exam prep is fragmented across WhatsApp groups, photocopied question papers, and individual tutors. The parent is the decision-maker and the paying customer, but the student is the user. That distinction drives everything about the architecture.",
-      problem:
-        "The gap wasn't 'there's no app' — there were apps. The gap was: no app understood the parent-as-gateway model. Every existing tool gave children direct accounts. But in Maharashtra's scholarship ecosystem, parents manage preparation, parents pay, and parents need visibility into progress. The real problem was building an access model that matched how families actually work, not how SaaS companies assume they work.",
-      constraints: [
-        "Parent-as-gateway: parent owns the account and manages multiple child profiles — each child may have a different exam tier and access level",
-        "Razorpay INR payments with webhook reliability in a market where payment failures are common",
-        "Mobile-first for rural Maharashtra users on older Android devices with unreliable connectivity",
-        "Generically extensible: the exam-category configuration must support rapid expansion to new exam verticals without re-architecting",
-        "Live customer support during onboarding — real users, real issues, real iteration pressure",
-      ],
-      architectureDecisions: [
-        {
-          what: "Authentication and access model",
-          chosen: "Parent-as-gateway: parent record owns all child sessions, child profiles inherit access from parent's tier",
-          rejected: "Direct child authentication / per-child accounts",
-          why: "Matches how families actually operate in this market. Simplified the threat model significantly — no child authentication surface. Supabase RLS policies scoped to parent_id rather than user_id per child.",
-        },
-        {
-          what: "Exam configuration",
-          chosen: "Generic exam-category configuration table — exam type, grade level, subject, question count, timer rules all configurable per category",
-          rejected: "Hardcoded exam types",
-          why: "MSCE is the launch vertical but not the only one. Every configuration parameter being data-driven means adding a new exam type is a database row, not a deployment.",
-        },
-        {
-          what: "AI-assisted delivery",
-          chosen: "Supabase MCP integration with Claude Code for content generation and AI-assisted development",
-          rejected: "Manual content pipeline",
-          why: "MCP server integration with Claude Code means content workflows run inside the development environment — schema-aware, context-aware, dramatically faster than a separate CMS.",
-        },
-      ],
-      hardProblem:
-        "Multi-tenant data isolation when one parent has multiple children with different access tiers — and the children are not paying users. Supabase Row Level Security was designed for single-user tenancy. Extending it to a parent-owns-children model required a custom access-control layer: every query scoped to the parent's subscription tier, with child profiles inheriting rather than holding their own access grants.",
-      fix:
-        "Rebuilt the permission model: parent record is the tenant root. Child profiles are owned rows under the parent, with no independent authentication. Access tier is resolved at query time from the parent's active subscription, propagated to child profile reads via a parent_id join. No child can access anything their parent hasn't paid for — and no parent can see another family's data.",
-      productionReality:
-        "Razorpay webhooks arrived multiple times for the same payment event. The initial payment handler wasn't idempotent — early users were seeing duplicate payment records. Added idempotency keys on the Razorpay order ID, with a processed_webhooks table to deduplicate before updating subscription state. Payment integration in a regulated market has more compliance edges than features.",
-      outcomeMetrics: [
-        { value: "Live", label: "In production", sub: "Paying customers" },
-        { value: "124", label: "E2E tests", sub: "Full test coverage plan" },
-        { value: "3", label: "Exam verticals", sub: "Generically extensible config" },
-        { value: "Shipped", label: "Status", sub: "Iterating in market" },
-      ],
-      lessons: [
-        "Match the access model to how the customer's family actually operates — not how SaaS assumes they operate",
-        "Payment webhook idempotency is not optional in markets with unreliable payment infrastructure",
-        "Generic configuration tables pay off immediately — the second exam vertical was two database rows and one afternoon",
-        "MCP server integration with Claude Code is a legitimate force multiplier for content-heavy platforms",
-        "Customer feedback in week 1 changes the spec faster than 6 months of planning",
-      ],
-      relatedSlugs: ["japaapp", "agentic-doc-review"],
-    } satisfies CaseStudy,
-  },
-  {
     title: "JapaApp",
     category: "deployment" as const,
     description:
@@ -1149,7 +1078,7 @@ export const projects = [
         "Monetization language matters in culturally-sensitive markets — donation tier naming with Sanskrit terms outperformed generic subscription language in early user feedback",
         "Own platform migration decisions: the move from AWS to Firebase was the right call, and making it early saved months of over-engineering",
       ],
-      relatedSlugs: ["scholarpath", "trading-system"],
+      relatedSlugs: ["trading-system"],
     } satisfies CaseStudy,
   },
   {

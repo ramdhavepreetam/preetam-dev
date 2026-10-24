@@ -21,7 +21,6 @@ Forward Deployed Engineer focused on Applied AI and production deployments. End-
 
 - 60–80% reduction in manual document review effort — Fortune 500's first production agentic AI workflow
 - 15,247 handwritten prescription PDFs processed in 47.5 hours at a charitable healthcare event — zero data loss, $0 infrastructure
-- 1,000+ students on ScholarPath, a live ed-tech SaaS platform
 - 3× "Delighted Customer" awards (2012, 2013, 2014) voted by UK enterprise clients at KPIT Technologies
 - 4 production products shipped end-to-end as solo founder
 
@@ -32,12 +31,6 @@ AWS serverless pipeline automating compliance review of 200+ page documents agai
 Architecture: S3 → EventBridge → Step Functions → 5 Lambda stages (pdf_extract, chunk_plan, kendra_retrieve, bedrock_review, aggregate_render) → Kendra GenAI RAG → Bedrock (Claude 3.5 Haiku, temperature=0.0).
 Key decisions: coverage gating (100% chunk completion before report), deterministic S3 key layout (no database), JSON schema enforcement + repair prompt, SSE-KMS encryption, IAM least-privilege.
 Outcome: 60–80% reduction in manual review effort. Modular patterns now reference architecture across the division.
-
-### ScholarPath (Ed-Tech · Live in Production)
-Multi-tenant SaaS for Maharashtra MSCE scholarship exam preparation.
-Stack: React 18 + TypeScript + FastAPI + Supabase + Razorpay. Parent-as-gateway permission model.
-URL: https://scholarpath-app.web.app
-Outcome: 1,000+ students, 124-test E2E suite, live with paying customers.
 
 ### OmmSai (Healthcare AI · Open Source)
 Python LLM pipeline processing 15,000+ handwritten prescription PDFs for a charitable healthcare event.
@@ -79,7 +72,7 @@ Frontend: React, Next.js, TypeScript, Vite, TailwindCSS, Framer Motion
 
 - KPIT Technologies (2008–2017): 8 years embedded with UK enterprise clients as single point of contact. Three "Delighted Customer" awards.
 - Fortune 500 Industrial Manufacturing (Current): Internal FDE, AI Agent Architect, AWS Solutions Architect. Renton, WA.
-- Independent Founder (2018–present): Four production products across ed-tech, healthcare AI, spiritual-tech, fintech.
+- Independent Founder (2018–present): Four production products across healthcare AI, spiritual-tech, fintech.
 - Education: Post Grad CS (Modern College, Pune), BCA (Dayanand College, Latur)
 - Certifications: AWS Solutions Architect, Prompt Engineering for ChatGPT (Coursera), Transformer Models & BERT (Google Cloud)
 - Languages: English, Hindi, Marathi

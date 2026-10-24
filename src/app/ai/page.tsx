@@ -57,14 +57,14 @@ export default function AIPage() {
               <div className="space-y-2">
                 <h3 className="text-xl font-serif italic text-pearl">How can I help you?</h3>
                 <p className="text-sm text-mist leading-relaxed">
-                  Try asking "What is ScholarPath?", "What's Preetam's tech stack?", 
+                  Try asking "What is NervaPack?", "What's Preetam's tech stack?", 
                   or "Tell me about the OmmSai project."
                 </p>
               </div>
               <div className="grid grid-cols-1 gap-2 w-full">
                 <QuickLink 
-                  text="Tell me about ScholarPath" 
-                  onClick={() => setInput("Tell me about ScholarPath")} 
+                  text="Tell me about NervaPack" 
+                  onClick={() => setInput("Tell me about NervaPack")} 
                 />
                 <QuickLink 
                   text="What AI tools does Preetam use?" 

@@ -25,10 +25,6 @@ export default function NowPage() {
             <ul className="space-y-4 text-mist">
               <li className="flex items-start gap-3">
                 <span className="text-cyan-electric mt-1">→</span>
-                <span>Iterating on **ScholarPath** — scaling to more students and refining the AI prep engine.</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-cyan-electric mt-1">→</span>
                 <span>Deep diving into **Agentic Workflows** using Claude 3.5 Sonnet and tool-calling patterns.</span>
               </li>
               <li className="flex items-start gap-3">

@@ -238,7 +238,7 @@ export default function PlaybookPage() {
               <div className="glass rounded-xl p-8 border border-white/5">
                 <h3 className="text-lg font-serif italic text-pearl mb-4">The slice-prompt methodology</h3>
                 <p className="text-sm text-mist leading-relaxed mb-4">When using AI coding tools on a specced system, slice the spec into vertical chunks — one complete feature slice at a time — and give the AI the spec section for that slice, not a vague description of what you want.</p>
-                <p className="text-sm text-mist leading-relaxed">For ScholarPath: the parent-as-gateway permission model was fully specced (parent_id scoping, child profile inheritance, RLS policy definition) before the first Supabase migration was generated. The AI produced the correct migration on the first attempt because the spec was precise. Vague requirement + AI coding tool = plausible wrong code that takes a day to debug.</p>
+                <p className="text-sm text-mist leading-relaxed">Vague requirement + AI coding tool = plausible wrong code that takes a day to debug.</p>
               </div>
             </div>
 

@@ -6,7 +6,6 @@ import { ArrowUpRight } from "lucide-react";
 const projectVisuals: Record<string, string> = {
   nervapack: "/nervapack-at-a-glance.png",
   "agentic-doc-review": "/projects/agentic-architecture.png",
-  scholarpath: "/scholarpath-screenshot.png",
   japaapp: "/japaapp-screenshot.png",
   "timesfm-mcp": "/projects/timesfm-mcp.svg",
 };
@@ -93,7 +92,7 @@ export function ProjectGrid() {
         <div className="flex flex-col md:flex-row items-baseline justify-between gap-4 mb-12">
           <div>
             <h2 className="text-4xl font-serif italic text-pearl">Featured Deployments</h2>
-            <p className="text-mist text-sm mt-2">Full-Stack · Agentic AI · Healthcare · Ed-Tech</p>
+            <p className="text-mist text-sm mt-2">Full-Stack · Agentic AI · Healthcare</p>
           </div>
           <Link href="/deployments" className="text-cyan-electric hover:underline flex items-center gap-1 text-sm font-medium shrink-0">
             View all deployments <ArrowUpRight className="h-4 w-4" />
