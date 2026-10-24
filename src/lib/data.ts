@@ -1013,18 +1013,18 @@ export const projects = [
   },
   {
     title: "JapaApp",
-    category: "deployment" as const,
+    category: "free-app" as const,
     description:
-      "Spiritual mantra-tracking PWA built for practitioners of Vedic disciplines. Originally architected on AWS (Lambda, RDS Proxy, Cognito JWT, SAM) before owning the platform-migration decision to Firebase. Implemented global admin via Firebase Custom Claims and Razorpay subscription/donation flow with tiered pricing.",
+      "Spiritual mantra-tracking PWA built for practitioners of Vedic disciplines. Originally architected on AWS (Lambda, RDS Proxy, Cognito JWT, SAM) before owning the platform-migration decision to Firebase. Implemented global admin via Firebase Custom Claims and a free-to-use experience with an optional Razorpay donation flow.",
     slug: "japaapp",
     image: "/japaapp-screenshot.png",
     tags: ["React 18", "TypeScript", "Firebase", "Framer Motion", "Razorpay", "PWA"],
-    metrics: "Live in production",
+    metrics: "Free · Live",
     featured: true,
     domain: "Spiritual-Tech",
     url: "https://dojapa.com/",
     caseStudy: {
-      headline: "Offline-first PWA for Vedic mantra practice — live in production with donation-based monetization.",
+      headline: "Offline-first PWA for Vedic mantra practice — free to use, live in production, supported by optional donations.",
       customer: "Practitioners of japa meditation — devotional mantra counting",
       timeline: "2024–Present",
       status: "Live in production",

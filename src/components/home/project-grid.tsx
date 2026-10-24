@@ -79,10 +79,10 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
 
 export function ProjectGrid() {
   const featuredDeployments = projects.filter(
-    (p) => p.featured && p.category !== "open-source"
+    (p) => p.featured && p.category === "deployment"
   );
   const openSourceTools = projects.filter(
-    (p) => p.featured && p.category === "open-source"
+    (p) => p.featured && p.category !== "deployment"
   );
 
   return (
@@ -106,11 +106,11 @@ export function ProjectGrid() {
         </div>
       </div>
 
-      {/* Open Source Tools */}
+      {/* Open Source Tools & Free Apps */}
       <div>
         <div className="flex flex-col md:flex-row items-baseline justify-between gap-4 mb-12">
           <div>
-            <h2 className="text-4xl font-serif italic text-pearl">Open Source</h2>
+            <h2 className="text-4xl font-serif italic text-pearl">Open Source &amp; Free Apps</h2>
             <p className="text-mist text-sm mt-2">
               Step 06 · Generalize — turning one customer&apos;s win into a reusable pattern.
             </p>

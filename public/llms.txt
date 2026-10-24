@@ -40,7 +40,7 @@ GitHub: https://github.com/ramdhavepreetam/OmmSai
 Outcome: 15,247 PDFs in 47.5 hours, 99.97% accuracy, $0 cost.
 
 ### JapaApp (Spiritual-Tech · Live in Production)
-Offline-first PWA for Vedic mantra practice. Firebase Custom Claims, Razorpay donation tiers with Sanskrit naming.
+Offline-first PWA for Vedic mantra practice. Free to use. Firebase Custom Claims, optional Razorpay donation tiers with Sanskrit naming.
 URL: https://dojapa.com
 Status: Live in production
 
