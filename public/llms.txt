@@ -22,7 +22,7 @@ Forward Deployed Engineer focused on Applied AI and production deployments. End-
 - 60–80% reduction in manual document review effort — Fortune 500's first production agentic AI workflow
 - 15,247 handwritten prescription PDFs processed in 47.5 hours at a charitable healthcare event — zero data loss, $0 infrastructure
 - 3× "Delighted Customer" awards (2012, 2013, 2014) voted by UK enterprise clients at KPIT Technologies
-- 4 production products shipped end-to-end as solo founder
+- 3 production products shipped end-to-end as solo founder
 
 ## Production Deployments
 
@@ -72,7 +72,7 @@ Frontend: React, Next.js, TypeScript, Vite, TailwindCSS, Framer Motion
 
 - KPIT Technologies (2008–2017): 8 years embedded with UK enterprise clients as single point of contact. Three "Delighted Customer" awards.
 - Fortune 500 Industrial Manufacturing (Current): Internal FDE, AI Agent Architect, AWS Solutions Architect. Renton, WA.
-- Independent Founder (2018–present): Four production products across healthcare AI, spiritual-tech, fintech.
+- Independent Founder (2018–present): Three production products across healthcare AI, spiritual-tech, fintech.
 - Education: Post Grad CS (Modern College, Pune), BCA (Dayanand College, Latur)
 - Certifications: AWS Solutions Architect, Prompt Engineering for ChatGPT (Coursera), Transformer Models & BERT (Google Cloud)
 - Languages: English, Hindi, Marathi
